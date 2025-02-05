@@ -1,0 +1,3396 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jmunozji.github.io/DAW/Ud1%20Control%20de%20versiones/T08_github/">
+      
+      
+        <link rel="prev" href="../T07_ramas/">
+      
+      
+        <link rel="next" href="../T09_github-flow/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+    
+    
+      
+        <title>1.8 Github - Despliegue de aplicaciones web</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-3NX5MD5C8H"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-3NX5MD5C8H",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-3NX5MD5C8H",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#github" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Despliegue de aplicaciones web" class="md-header__button md-logo" aria-label="Despliegue de aplicaciones web" data-md-component="logo">
+      
+  <img src="../../assets/logocaminas.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Despliegue de aplicaciones web
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.8 Github
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="green"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Despliegue de aplicaciones web" class="md-nav__button md-logo" aria-label="Despliegue de aplicaciones web" data-md-component="logo">
+      
+  <img src="../../assets/logocaminas.png" alt="logo">
+
+    </a>
+    Despliegue de aplicaciones web
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Despliegue de aplicaciones web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud0 Introduccion
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ud0 Introduccion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/Ud0_1Introalmodulo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.1. Introducción al módulo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/Ud0_2AWS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.2. Introducción a AWS Academy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.1. Linux Server en AWSAcademy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.2 Windows Server en AWSAcademy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.3. Conceder acceso a un segundo administrador
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.4. Comandos básicos Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud1 Control de versiones
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ud1 Control de versiones
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T01_index_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T02_cvs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Sistemas de control de versiones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T03_introduccion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Introducción a git 
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T04_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 Instalación y configuración de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T05_usobasico/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Uso básico de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T06_usoavanzado/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Uso avanzado de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T07_ramas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 Ramas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    1.8 Github
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    1.8 Github
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tu-clave-publicaprivada" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tu clave pública/privada
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clientes-graficos-para-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clientes gráficos para GitHub
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-un-repositorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crear un repositorio
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clonar-un-repositorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clonar un repositorio
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ramas-remotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ramas remotas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enviando-actualizaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enviando actualizaciones
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recibiendo-actualizaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recibiendo actualizaciones
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problemas-de-sincronizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problemas de sincronización
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problemas de sincronización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-puedo-hacer-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      No puedo hacer push
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-puedo-hacer-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      No puedo hacer pull
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practicar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practicar
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T09_github-flow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.9 Flujo de trabajo en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T10_colaboracion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.10 Colaboración en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T11_gitflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.11 Flujo de trabajo con Git (git flow)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T12_github-zenodo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.12 Citar proyectos en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T13_othercommands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.13 Otros comandos de git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T14_referencias/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.14 Terminología y referencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_15" id="__nav_3_15_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_15">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.1 Introducción a git y GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.2 Git Trabajando con ramas y uniones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.3 Ejercicios Git y Github
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.4 Ejercicios Git y Github (II)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.5 Git avanzado - Aprendiendo branching
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.6 Introducción a Markdown
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud2 Contenedores
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Ud2 Contenedores
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T01_introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T02_installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 Instalación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T03_principales_acciones/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Principales acciones con Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T04_images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 Imágenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T05_volumes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 Volúmenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T06_integrandovolsyconts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6 Integrar contenedores y volúmenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T07_docker-compose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7 Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T09_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9 Trucos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud3 Servidores web
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ud3 Servidores web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1. Implantación de arquitecturas web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2. Arquitectura Web. Implantación y administración de servidores web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3. Los protocolos HTTP y HTTPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4. Servidores web: Nginx vs Apache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.1 – Instalación y configuración de servidores web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.2 – Creación de un sitio virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.3 – Autenticación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica 3.4 - Activación HTTPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica 3.5 - Instalación de la pila LAMP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P06DockerizacionPHPNginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.6 - Instalación pila LAMP dockerizada
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 3.1 – Proxy inverso con Nginx
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 3.2 – Balanceo de carga con proxy inverso en Nginx
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica Voluntaria 3.3 - Proxy inverso y balanceo de carga con SSL en NGINX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud4 Servicios de red DNS y LDAP
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Ud4 Servicios de red DNS y LDAP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servicios de red implicados en el despliegue de aplicaciones web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Servicio DNS (Domain Name System)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Servicio de directorio LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P1DNS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1 - Configuración de un servidor DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P2DNSDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2 - Dockerización de un servidor DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P3LDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3 - Configuración de un servidor LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P4LDAPFicheros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4 - Carga de datos en servidor LDAP mediante ficheros ldif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P5LDAPDockerizacion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 5 - Dockerización de servidor LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P6AutenticacionApacheLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 6 - Autenticación Apache contra LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P7AutApacheLDAPDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 7 - Autenticación Apache contra LDAP dockerizada
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P8AutenticandoNginxLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8 - Autenticación Nginx contra LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/PV1DockerizacionLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PV1 - Dockerización de servidor web con usuarios autenticados mediante servicio de directorio (LDAP)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud5 Servicios de red FTP
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Ud5 Servicios de red FTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servidor de Transferencia de Ficheros
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Servidores y clientes FTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1 - Acceso a un servidor FTP público ftp.rediris.es
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Autenticación, control de acceso y cuotas.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2 - Instalar y Configurar el servidor vsFTPd sin cifrado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Protocolo de transferencia de ficheros seguro.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3. Configuración de servidor FTP con Cifrado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Utilización de FTP en el proceso de despliegue de la aplicación web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4. Dockerizar un servidor FTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud6 Servidores de aplicaciones
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Ud6 Servidores de aplicaciones
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servidores de aplicaciones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Despliegue de aplicaciones web.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Despliegue de aplicaciones Java
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P01-TomcatInstalacion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1: Instalación de Tomcat.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P02-TomcatDespliegue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2: Despliegue de aplicaciones con Tomcat.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P03-TomcatMaven/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3: Despliegue en Tomcat con Maven
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Despliegue de aplicaciones Javascript
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P04-NodeJS-Express/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4 - Despliegue de aplicaciones con Node Express
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P05-DockerizacionNodeJs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 5 - Dockerización del despliegue de una aplicación con Node.js
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P06-Cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 6 - Despliegue de una aplicación "clusterizada" con Node Express
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P07-Netlify/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica  7 - Despliegue de una aplicación en Netlify (Paas)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P08-Flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8 - Despliegue de una aplicación Flask (Python)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P09-FlaskEnDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 9 - Aplicación Python con Flask en Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/PV01-Heroku/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 1 - Despliegue de una aplicación Node.js en Heroku (PaaS)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. CI/CD (Continous Integration/Continous Deployment-Delivery).
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud7 CI CD
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ud7 CI CD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud7%20CI-CD/Ud8_1_cicd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8.1 - CI/CD (Integración y despliegue continuo)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud7%20CI-CD/P8_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8.1- Toma de contacto con CI/CD usando Github actions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="github">Github</h1>
+<p><img alt="" src="../Ud6_img/git_github.png" /></p>
+<p>Github es lo que se denomina una <strong>forja</strong>, un repositorio de proyectos que usan Git como sistema de control de versiones. Es la forja más popular, ya que alberga más de 10 millones de repositorios. Debe su popularidad a sus funcionalidades sociales, principalmente dos: </p>
+<ul>
+<li>la posibilidad de hacer forks de otros proyectos y </li>
+<li>la posibilidad de cooperar aportando código para arreglar errores o mejorar el código. </li>
+</ul>
+<p>Si bien, no es que fuera una novedad, sí lo es lo fácil que resulta hacerlo. A raíz de este proyecto han surgido otros como <em>Gitorius</em> o <em>Gitlab</em>, pero <em>Github</em> sigue siendo el más popular y el que tiene mejores y mayores características. Algunas de estas son:</p>
+<ul>
+<li>Un wiki para documentar el proyecto, que usa MarkDown como lenguaje de marca.</li>
+<li>Un portal web para cada proyecto.</li>
+<li>Funcionalidades de redes sociales como followers.</li>
+<li>Gráficos estadísticos.</li>
+<li>Revisión de código y comentarios.</li>
+<li>Sistemas de seguimiento de incidencias.</li>
+</ul>
+<p>Lo primero es entrar en el portal (<a href="https://github.com/">https://github.com/</a>) para crearnos una cuenta si no la tenemos aún.</p>
+<h2 id="tu-clave-publicaprivada">Tu clave pública/privada</h2>
+<p>Muchos servidores Git utilizan la autentificación a través de claves públicas SSH. Y, para ello, cada usuario del sistema ha de generarse una, si es que no la tiene ya. El proceso para hacerlo es similar en casi cualquier sistema operativo. Ante todo, asegurarte que no tengas ya una clave. (comprueba que el directorio <code>$HOME/usuario/.ssh</code> no tiene un archivo id_dsa.pub o id_rsa.pub).</p>
+<p>Para crear una nueva clave usamos la siguiente orden:</p>
+<div class="highlight"><pre><span></span><code>$ ssh-keygen -t rsa -C &quot;Cuenta GitHub&quot;
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Tu clave RSA te identifica contra los repositorios remotos, asegúrate de
+no compartir la clave privada con nadie. Por defecto la clave se crea como
+<em>solo lectura</em>.</p>
+</div>
+<h2 id="configuracion">Configuración</h2>
+<p>Vamos a aprovechar para añadir la clave RSA que generamos antes, para poder acceder desde git a los repositorios. Para ellos nos vamos al menú de configuración de usuario (<em>Settings</em>)</p>
+<p><img alt="Barra principal de menú" src="../Ud6_img/github-topbar.png" /></p>
+<p>Nos vamos al menú 'SSH and GPG Keys' y añadimos una nueva clave. En <em>Title</em> indicamos una descripción que nos ayude a saber de dónde procede la clave y en key volcamos el contenido del archivo <code>~/.ssh/id_rsa.pub</code>. Y guardamos la clave.</p>
+<p><img alt="Clave SSH" src="../Ud6_img/github-sshkeys.png" /></p>
+<p>Con esto ya tendriamos todo nuestro entorno para poder empezar a trabajar desde nuestro equipo.</p>
+<h2 id="clientes-graficos-para-github">Clientes gráficos para GitHub</h2>
+<p>Además, para Github existe un cliente propio tanto para Windows como para MacOSX:</p>
+<ul>
+<li>
+<p>Cliente Windows: <a href="http://windows.github.com/">http://windows.github.com/</a></p>
+</li>
+<li>
+<p>Cliente MacOSX: <a href="http://mac.github.com/">http://mac.github.com/</a></p>
+</li>
+</ul>
+<p>Para Linux no hay cliente propio, pero sí hay plugin para la mayoría de editores de texto como atom, netbeans, eclipe o los editores de jetbrains.</p>
+<p>De todas maneras, estos clientes solo tienen el fin de facilitar el uso de Github, pero no son necesarios para usarlo. Es perfectamente válido usar el cliente de consola de Git o cualquier otro cliente genérico para Git. Uno de los más usados actualmente es <a href="https://www.gitkraken.com/">GitKraken</a>.</p>
+<h2 id="crear-un-repositorio">Crear un repositorio</h2>
+<p>Vamos a crear un repositorio donde guardar nuestro proyecto. Para ello pulsamos el signo <code>+</code> que hay en la barra superior y seleccionamos <code>New repository</code>.</p>
+<p>Ahora tenemos que designar un nombre para nuestro repositorio, por ejemplo: '<em>taller-de-git</em>'.</p>
+<p><img alt="Nuevo repositorio" src="../Ud6_img/github-newrepo.png" /></p>
+<p>Nada más crear el repositorio nos saldrá una pantalla con instrucciones precisas de como proceder a continuación.</p>
+<p>Básicamente podemos partir de 3 situaciones:</p>
+<ol>
+<li>Quick setup - olvidamos por ahora</li>
+<li>Todavía no hemos creado ningún repositorio en nuestro equipo. (…or create a new repository on the command line)</li>
+<li>Ya tenemos un repositorio creado y queremos sincronizarlo con Github. (…or push an existing repository from the command line)</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Veremos una pantalla similar a esta. Los comandos pueden variar ligeramente si existe una nueva versión de git. Fíjate en los comandos que a ti te aparecen.</p>
+<p>En el momento de revisar estas notas la última de las opciones que se ve en la captura ya no aparece en GitHub</p>
+</div>
+<p><img alt="Quick setup" src="../Ud6_img/github-quicksetup.png" /></p>
+<p>Nuestra situación es la tercera, ya tenemos un repositorio creado y vamos a sincronizarlo con github así que seguiremos las instrucciones de la apartado "…or push an existing repository from the command line" desde la consola de nuestro equipo y dentro del directorio <code>curso-de-git</code> que venimos utilizando en estas notas.</p>
+<div class="highlight"><pre><span></span><code>$ git remote add origin git@github.com:sgomez/taller-de-git.git
+$ git branch -M main
+$ git push -u origin main
+Counting objects: 33, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (24/24), done.
+Writing objects: 100% (33/33), 3.35 KiB | 1.12 MiB/s, done.
+Total 33 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), done.
+To github.com:sgomez/taller-de-git.git
+ * [new branch]      main -&gt; main
+rama &#39;main&#39; configurada para rastrear &#39;origin/main&#39;.
+</code></pre></div>
+<div class="admonition atención">
+<p class="admonition-title">Atención</p>
+<p>En la versión de git utilizada al realizar estos apuntes a la rama principal le llama "master". En la versión actual le denomina "main". Cambiaré los comandos y salidas para evitar errores, aunque podrían diferir ligeramente de lo que obtengas.</p>
+</div>
+<p>Si recargamos la página veremos que ya aparece nuestro proyecto.</p>
+<p><img alt="Github: código" src="../Ud6_img/github-code.png" /></p>
+<h2 id="clonar-un-repositorio">Clonar un repositorio</h2>
+<p>Una vez que ya tengamos sincronizado el repositorio contra Github, eventualmente
+vamos a querer descargarlo en otro de nuestros ordenadores para poder trabajar
+en él. Esta acción se denomina clonar y para ello usaremos la orden <code>git clone</code>.</p>
+<p>En la página principal de nuestro proyecto podemos ver un botón que indica <code>Clone or download</code>.
+Si la pulsamos nos da, de nuevo, la opción de elegir entre clonar con <em>ssh</em> o <em>https</em>.
+Recordad que si estáis en otro equipo y queréis seguir utilizando ssh deberéis
+generar otra para de claves privada/pública como hicimos en la sección de
+<em><a href="#tu-clave-publicaprivada">Tu clave pública/privada</a></em> y instalarla
+en nuestro perfil de Github, como vimos anteriormente.</p>
+<p>Para clonar nuestro repositorio y poder trabajar con él todo lo que debemos hacer es
+lo siguiente:</p>
+<div class="highlight"><pre><span></span><code>$ git clone git@github.com:sgomez/taller-de-git.git
+$ cd taller-de-git
+</code></pre></div>
+<h2 id="ramas-remotas">Ramas remotas</h2>
+<p>Si ahora vemos el estado de nuestro proyecto veremos algo similar a esto:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$ git hist --all
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>* 2eab8ca 2013-06-16 | Aplicando los cambios de la rama hola (HEAD -&gt; main, origin/main) [Sergio Gomez]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>*\
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>| * 9862f33 2013-06-16 | hola usa la clase HolaMundo (hola) [Sergio Gómez]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>| * 6932156 2013-06-16 | Añadida la clase HolaMundo [Sergio Gómez]
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>|/
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>* 9c85275 2013-06-16 | Programa interactivo (master) [Sergio Gómez]
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>* c3e65d0 2013-06-16 | Añadido README.md [Sergio Gómez]
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>* 81c6e93 2013-06-16 | Movido hola.php a lib [Sergio Gómez]
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>* 96a39df 2013-06-16 | Añadido el autor del programa y su email [Sergio Gómez]
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>* fd4da94 2013-06-16 | Se añade un comentario al cambio del valor por defecto (tag: v1) [Sergio Gómez]
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>* 3283e0d 2013-06-16 | Se añade un parámetro por defecto (tag: v1-beta) [Sergio Gómez]
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>* efc252e 2013-06-16 | Parametrización del programa [Sergio Gómez]
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>* e19f2c1 2013-06-16 | Creación del proyecto [Sergio Gómez]
+</code></pre></div>
+<p>Aparece que hay una nueva rama llamada <code>origin/main</code>. Esta rama indica el estado de sincronización
+de nuestro repositorio con un repositorio remoto llamado <em>origin/main   </em>. En este caso el de <em>Github</em>.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Por norma se llama automáticamente <em>origin</em> al primer repositorio con el que
+sincronizamos nuestro repositorio.</p>
+</div>
+<p>Podemos ver la configuración de este repositorio remoto con la orden <code>git remote</code>:</p>
+<div class="highlight"><pre><span></span><code>$ git remote show origin
+* remote origin
+  Fetch URL: git@github.com:sgomez/taller-de-git.git
+  Push  URL: git@github.com:sgomez/taller-de-git.git
+  HEAD branch: main
+  Remote branch:
+    main tracked
+  Local ref configured for &#39;git push&#39;:
+    main pushes to main (up to date)
+</code></pre></div>
+<p>De la respuesta tenemos que fijarnos en las líneas que indican <em>fetch</em> y <em>push</em>
+puesto que son las acciones de sincronización de nuestro repositorio con el remoto.
+Mientras que <em>fetch</em> se encarga de traer los cambios desde el repositorio remoto
+al nuestro, <em>push</em> los envía.</p>
+<h2 id="enviando-actualizaciones">Enviando actualizaciones</h2>
+<p>Vamos a añadir una licencia a nuestra aplicación. Creamos un fichero LICENSE con el siguiente contenido:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>MIT License
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Copyright (c) [year] [fullname]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Permission is hereby granted, free of charge, to any person obtaining a copy
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>of this software and associated documentation files (the &quot;Software&quot;), to deal
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>in the Software without restriction, including without limitation the rights
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>copies of the Software, and to permit persons to whom the Software is
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>furnished to do so, subject to the following conditions:
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>The above copyright notice and this permission notice shall be included in all
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>copies or substantial portions of the Software.
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>SOFTWARE.
+</code></pre></div>
+<p>Y añadidos y confirmamos los cambios:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$ git add LICENSE
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$ git commit -m &quot;Añadida licencia&quot;
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>[master 3f5cb1c] Añadida licencia
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a> 1 file changed, 21 insertions(+)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a> create mode 100644 LICENSE
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>$ git hist --all
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>* 3f5cb1c 2013-06-16 | Añadida licencia (HEAD -&gt; main) [Sergio Gómez]
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>*   2eab8ca 2013-06-16 | Aplicando los cambios de la rama hola (origin/main) [Sergio Gomez]
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>*\
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>| * 9862f33 2013-06-16 | hola usa la clase HolaMundo (hola) [Sergio Gómez]
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>| * 6932156 2013-06-16 | Añadida la clase HolaMundo [Sergio Gómez]
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>|/
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>* 9c85275 2013-06-16 | Programa interactivo (master) [Sergio Gómez]
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>* c3e65d0 2013-06-16 | Añadido README.md [Sergio Gómez]
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>* 81c6e93 2013-06-16 | Movido hola.php a lib [Sergio Gómez]
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>* 96a39df 2013-06-16 | Añadido el autor del programa y su email [Sergio Gómez]
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>* fd4da94 2013-06-16 | Se añade un comentario al cambio del valor por defecto (tag: v1) [Sergio Gómez]
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>* 3283e0d 2013-06-16 | Se añade un parámetro por defecto (tag: v1-beta) [Sergio Gómez]
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>* efc252e 2013-06-16 | Parametrización del programa [Sergio Gómez]
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>* e19f2c1 2013-06-16 | Creación del proyecto [Sergio Gómez]
+</code></pre></div>
+<p>Viendo la historia podemos ver como nuestro master no está en el mismo punto que
+<code>origin/main</code>. Si vamos a la web de <em>Github</em> veremos que <code>LICENSE</code> no aparece aún.
+Así que vamos a enviar los cambios con la primera de las acciones que vimos <code>git push</code>:</p>
+<div class="highlight"><pre><span></span><code>$ git push
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 941 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@github.com:sgomez/taller-de-git.git
+   2eab8ca..3f5cb1c  main -&gt; main
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>La orden <code>git push</code> necesita dos parámetros para funcionar: el repositorio
+y la rama destino. Así que realmente lo que teníamos que haber escrito es:</p>
+<div class="highlight"><pre><span></span><code>$ git push origin main
+</code></pre></div>
+<p>Para ahorrar tiempo escribiendo <em>git</em> nos deja vincular nuestra rama local
+con una rama remota, de tal manera que no tengamos que estar siempre indicándolo.
+Eso es posible con el parámetro <code>--set-upstream</code> o <code>-u</code> en forma abreviada.</p>
+<div class="highlight"><pre><span></span><code>$ git push -u origin main
+</code></pre></div>
+<p>Si repasas las órdenes que te indicó Github que ejecutaras verás que el parámetro
+<code>-u</code> estaba presente y por eso no ha sido necesario indicar ningún parámetro
+al hacer push.</p>
+</div>
+<h2 id="recibiendo-actualizaciones">Recibiendo actualizaciones</h2>
+<p>Si trabajamos con más personas, o trabajamos desde dos ordenadores distintos, nos encontraremos
+con que nuestro repositorio local es más antiguo que el remoto. Necesitamos descargar
+los cambios para poder incorporarlos a nuestro directorio de trabajo.</p>
+<p>Para la prueba, Github nos permite editar archivos directamente desde la web. Pulsamos sobre
+el archivo <code>README.md</code>. En la vista del archivo, veremos que aparece el icono de un lápiz.
+Esto nos permite editar el archivo.</p>
+<p><img alt="Editar archivo" src="../Ud6_img/github-edit.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Los archivos con extensión <code>.md</code> están en un formato denominado <em>MarkDown</em>. Se trata
+de un lenguaje de marca que nos permite escribir texto enriquecido de manera muy sencilla.</p>
+<p>Dispones de un tutorial aquí: <a href="https://www.markdowntutorial.com/">https://www.markdowntutorial.com/</a></p>
+</div>
+<p>Modificamos el archivo como queramos, por ejemplo, añadiendo nuestro nombre:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># Curso de GIT
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Este proyecto contiene el curso de introducción a GIT
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Desarrollado por Sergio Gómez.
+</code></pre></div>
+<p><img alt="Confirmar cambios" src="../Ud6_img/github-changes.png" /></p>
+<p>El cambio quedará incorporado al repositorio de Github, pero no al nuestro. Necesitamos
+traer la información desde el servidor remoto. La orden asociada es <code>git fetch</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$ git fetch
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$ git hist --all
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>* cbaf831 2013-06-16 | Actualizado README.md (origin/main) [Sergio Gómez]
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>* 3f5cb1c 2013-06-16 | Añadida licencia (HEAD -&gt; main) [Sergio Gómez]
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>*   2eab8ca 2013-06-16 | Aplicando los cambios de la rama hola [Sergio Gomez]
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>*\
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>| * 9862f33 2013-06-16 | hola usa la clase HolaMundo (hola) [Sergio Gómez]
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>| * 6932156 2013-06-16 | Añadida la clase HolaMundo [Sergio Gómez]
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>|/
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>* 9c85275 2013-06-16 | Programa interactivo (master) [Sergio Gómez]
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>* c3e65d0 2013-06-16 | Añadido README.md [Sergio Gómez]
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>* 81c6e93 2013-06-16 | Movido hola.php a lib [Sergio Gómez]
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>* 96a39df 2013-06-16 | Añadido el autor del programa y su email [Sergio Gómez]
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>* fd4da94 2013-06-16 | Se añade un comentario al cambio del valor por defecto (tag: v1) [Sergio Gómez]
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>* 3283e0d 2013-06-16 | Se añade un parámetro por defecto (tag: v1-beta) [Sergio Gómez]
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>* efc252e 2013-06-16 | Parametrización del programa [Sergio Gómez]
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>* e19f2c1 2013-06-16 | Creación del proyecto [Sergio Gómez]
+</code></pre></div>
+<p>Ahora vemos el caso contrario, tenemos que <code>origin/master</code> está por delante que <code>HEAD</code> y
+que la rama <code>main</code> local.</p>
+<div class="admonition atención">
+<p class="admonition-title">Atención</p>
+<p><code>git fetch</code> trae la información de los cambios realizados en GitHub, pero no importa directamente los cambios en local</p>
+</div>
+<p>Ahora necesitamos incorporar los cambios de la rama remota en la local. La forma de hacerlo
+lo vimos en el <a href="../T07_ramas/#mezclar-ramas">capítulo de ramas</a> usando <code>git merge</code> o <code>git rebase</code>.</p>
+<p>Habitualmente se usa <code>git merge</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$ git merge origin/main
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Updating 3f5cb1c..cbaf831
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Fast-forward
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a> README.md | 2 ++
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a> 1 file changed, 2 insertions(+)
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>$ git hist --all
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>* cbaf831 2013-06-16 | Actualizado README.md (HEAD -&gt; main, origin/main) [Sergio Gómez]
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>* 3f5cb1c 2013-06-16 | Añadida licencia [Sergio Gómez]
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>* 2eab8ca 2013-06-16 | Aplicando los cambios de la rama hola [Sergio Gomez]
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>*\
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>| * 9862f33 2013-06-16 | hola usa la clase HolaMundo (hola) [Sergio Gómez]
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>| * 6932156 2013-06-16 | Añadida la clase HolaMundo [Sergio Gómez]
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>|/
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>* 9c85275 2013-06-16 | Programa interactivo (master) [Sergio Gómez]
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>* c3e65d0 2013-06-16 | Añadido README.md [Sergio Gómez]
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>* 81c6e93 2013-06-16 | Movido hola.php a lib [Sergio Gómez]
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>* 96a39df 2013-06-16 | Añadido el autor del programa y su email [Sergio Gómez]
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>* fd4da94 2013-06-16 | Se añade un comentario al cambio del valor por defecto (tag: v1) [Sergio Gómez]
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>* 3283e0d 2013-06-16 | Se añade un parámetro por defecto (tag: v1-beta) [Sergio Gómez]
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>* efc252e 2013-06-16 | Parametrización del programa [Sergio Gómez]
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>* e19f2c1 2013-06-16 | Creación del proyecto [Sergio Gómez]
+</code></pre></div>
+<p>Como las operaciones de traer cambios (<code>git fetch</code>) y de mezclar ramas (<code>git merge</code> o <code>git rebase</code>)
+están muy asociadas, <em>git</em> nos ofrece una posibilidad para ahorrar pasos que es la orden <code>git pull</code>
+que realiza las dos acciones simultáneamente.</p>
+<p>Para probar, vamos a editar de nuevo el archivo README.md en GitHub y añadimos algo más:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># Curso de GIT
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Este proyecto contiene el curso de introducción a GIT del Aula de Software Libre.
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>Desarrollado por Sergio Gómez.
+</code></pre></div>
+<p>Como mensaje del <em>commit</em>: <em>'Indicado que se realiza en el ASL'</em>.</p>
+<p>Y ahora probamos a actualizar con <code>git pull</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$ git pull
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>remote: Enumerating objects: 5, done.
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>remote: Counting objects: 100% (5/5), done.
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>remote: Compressing objects: 100% (3/3), done.
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Unpacking objects: 100% (3/3), 811 bytes | 811.00 KiB/s, done.
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>From github.com:sgomez/taller-de-git
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>   cbaf831..d8922e4  main     -&gt; origin/main
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>Updating 6e4cda3..bb3dc3e
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>Fast-forward
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a> README.md | 2 +-
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a> 1 file changed, 1 insertion(+), 1 deletion(-)
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>$ git hist --all
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>* d8922e4 2013-06-16 | Update README.md (HEAD -&gt; main, origin/main) [Sergio Gómez]
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>* cbaf831 2013-06-16 | Update README.md [Sergio Gómez]
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>* 3f5cb1c 2013-06-16 | Añadida licencia [Sergio Gómez]
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>* 2eab8ca 2013-06-16 | Aplicando los cambios de la rama hola [Sergio Gomez]
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>*\
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>| * 9862f33 2013-06-16 | hola usa la clase HolaMundo (hola) [Sergio Gómez]
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>| * 6932156 2013-06-16 | Añadida la clase HolaMundo [Sergio Gómez]
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>|/
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>* 9c85275 2013-06-16 | Programa interactivo (master) [Sergio Gómez]
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>* c3e65d0 2013-06-16 | Añadido README.md [Sergio Gómez]
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>* 81c6e93 2013-06-16 | Movido hola.php a lib [Sergio Gómez]
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>* 96a39df 2013-06-16 | Añadido el autor del programa y su email [Sergio Gómez]
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>* fd4da94 2013-06-16 | Se añade un comentario al cambio del valor por defecto (tag: v1) [Sergio Gómez]
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>* 3283e0d 2013-06-16 | Se añade un parámetro por defecto (tag: v1-beta) [Sergio Gómez]
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>* efc252e 2013-06-16 | Parametrización del programa [Sergio Gómez]
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>* e19f2c1 2013-06-16 | Creación del proyecto [Sergio Gómez]
+</code></pre></div>
+<p>Vemos que los cambios se han incorporado y que las ramas remota y local de <em>master</em> están
+sincronizadas.</p>
+<h2 id="problemas-de-sincronizacion">Problemas de sincronización</h2>
+<h3 id="no-puedo-hacer-push">No puedo hacer push</h3>
+<p>Al intentar subir cambios nos podemos encontrar un mensaje como este:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$ git push
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>git push
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>To git@github.com:sgomez/taller-de-git.git
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a> ! [rejected]        main -&gt; main (fetch first)
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>error: failed to push some refs to &#39;git@github.com:sgomez/taller-de-git.git&#39;
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>hint: Updates were rejected because the remote contains work that you do
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>hint: not have locally. This is usually caused by another repository pushing
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>hint: to the same ref. You may want to first integrate the remote changes
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>hint: (e.g., &#39;git pull ...&#39;) before pushing again.
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.
+</code></pre></div>
+<p>La causa es que el repositorio remoto también se ha actualizado y nosotros aún
+no hemos recibido esos cambios. Es decir, ambos repositorios se han actualizado
+y el remoto tiene preferencia. Hay un conflicto en ciernes y se debe resolver
+localmente antes de continuar.</p>
+<p>Vamos a provocar una situación donde podamos ver esto en acción. Vamos a modificar el
+archivo <code>README.md</code> tanto en local como en remoto a través del interfaz web.</p>
+<p>En el web vamos a cambiar el título para que aparezca de la siguiente manera.</p>
+<div class="highlight"><pre><span></span><code>Curso de GIT, 2020
+</code></pre></div>
+<p>En local vamos a cambiar el título para que aparezca de la siguiente manera.</p>
+<div class="highlight"><pre><span></span><code>Curso de GIT, febrero
+</code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Haz el commit para guardar el cambio en local.</p>
+</div>
+<details class="example">
+<summary>Respuesta al ejercicio anterior</summary>
+<p>Añadimos el fichero actualizado:</p>
+<div class="highlight"><pre><span></span><code>$ git commit -am &quot;Añadido el mes al README&quot;
+[master 1e8c0b7] Añadido el mes al README
+1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre></div>
+</details>
+<p>La forma de proceder en este caso es hacer un <code>git fetch</code> y un <code>git rebase</code>. Si
+hay conflictos deberán resolverse. Cuando esté todo solucionado ya podremos hacer
+<code>git push</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Por defecto <code>git pull</code> lo que hace es un <code>git merge</code>, si queremos hacer
+<code>git rebase</code> deberemos especificarlos con el parámetro <code>-r</code>:</p>
+<div class="highlight"><pre><span></span><code>$ git pull --rebase
+</code></pre></div>
+</div>
+<p>Vamos a hacer el pull con rebase y ver qué sucede.</p>
+<div class="highlight"><pre><span></span><code>$ git pull --rebase
+First, rewinding head to replay your work on top of it...
+Applying: Añadido el mes al README
+Using index info to reconstruct a base tree...
+M   README.md
+Falling back to patching base and 3-way merge...
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+error: Failed to merge in the changes.
+Patch failed at 0001 Añadido el mes al README
+hint: Use &#39;git am --show-current-patch&#39; to see the failed patch
+
+Resolve all conflicts manually, mark them as resolved with
+&quot;git add/rm &lt;conflicted_files&gt;&quot;, then run &quot;git rebase --continue&quot;.
+You can instead skip this commit: run &quot;git rebase --skip&quot;.
+To abort and get back to the state before &quot;git rebase&quot;, run &quot;git rebase --abort&quot;.
+</code></pre></div>
+<p>Evidentemente hay un conflicto porque hemos tocado el mismo archivo. Se deja como ejercicio resolverlo.</p>
+<details class="example">
+<summary>Respuesta al ejercicio anterior</summary>
+<p>El contenido del fichero final podría ser:</p>
+<div class="highlight"><pre><span></span><code>Curso de GIT, febrero, 2020
+</code></pre></div>
+<p>A continuación confirmamos los cambios y los enviamos al servidor</p>
+<div class="highlight"><pre><span></span><code>$ git add README.md
+$ git rebase --continue
+$ git push
+</code></pre></div>
+</details>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>¿Por qué hemos hecho rebase en master si a lo largo del curso hemos dicho que no se debe cambiar
+la linea principal?</p>
+<p>Básicamente hemos dicho que lo que no debemos hacer es modificar la línea temporal <strong>compartida</strong>.
+En este caso nuestros cambios en <em>master</em> solo estaban en nuestro repositorio, porque al fallar
+el envío nadie más ha visto nuestras actualizaciones. Al hacer <em>rebase</em> estamos deshaciendo nuestros
+cambios, bajarnos la última actualización compartida de <em>master</em> y volviéndolos a aplicar. Con lo que
+realmente la historia compartida no se ha modificado.</p>
+</div>
+<p>Este es un problema que debemos evitar en la medida de lo posible. La menor cantidad
+de gente posible debe tener acceso de escritura en master y las actualizaciones de dicha rama deben
+hacerse a través de ramas secundarias y haciendo merge en master como hemos visto en el capítulo de ramas.</p>
+<h3 id="no-puedo-hacer-pull">No puedo hacer pull</h3>
+<p>Al intentar descargar cambios nos podemos encontrar un mensaje como este:</p>
+<div class="highlight"><pre><span></span><code>$ git pull
+error: Cannot pull with rebase: You have unstaged changes.
+</code></pre></div>
+<p>O como este:</p>
+<div class="highlight"><pre><span></span><code>$ git pull
+error: Cannot pull with rebase: Your index contains uncommitted changes.
+</code></pre></div>
+<p>Básicamente lo que ocurre es que tenemos cambios sin confirmar en nuestro espacio
+de trabajo. Una opción es confirmar (<em>commit</em>) y entonces proceder como el caso anterior.</p>
+<p>Pero puede ocurrir que aún estemos trabajando todavía y no nos interese confirmar
+los cambios, solo queremos sincronizar y seguir trabajando. Para casos como estos
+<em>git</em> ofrece una pila para guardar cambios temporalmente. Esta pila se llama <em>stash</em>
+y nos permite restaurar el espacio de trabajo al último commit.</p>
+<p>De nuevo vamos a modificar nuestro proyecto para ver esta situación en acción.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>En remoto borra el año de la fecha y en local borra el mes. Pero esta vez
+<strong>no hagas commit en local</strong>. El archivo solo debe quedar modificado.</p>
+</div>
+<p>La forma de proceder es la siguiente:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$ git stash save # Guardamos los cambios en la pila
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>$ git pull # Sincronizamos con el repositorio remoto, -r para hacer rebase puede ser requerido
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>$ git stash pop # Sacamos los cambios de la pila
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Como ocurre habitualmente, git nos proporciona una forma de hacer todos estos pasos de una
+sola vez. Para ello tenemos que ejecutar lo siguiente:</p>
+<div class="highlight"><pre><span></span><code>$ git pull --autostash
+</code></pre></div>
+<p>En general no es mala idea ejecutar lo siguiente si somos conscientes, además, de que tenemos varios
+cambios sin sincronizar:</p>
+<div class="highlight"><pre><span></span><code>$ git pull --autostash --rebase
+</code></pre></div>
+</div>
+<p>Podría darse el caso de que al sacar los cambios de la pila hubiera algún
+conflicto. En ese caso actuamos como con el caso de <em>merge</em> o <em>rebase</em>.</p>
+<p>De nuevo este tipo de problemas no deben suceder si nos acostumbramos a trabajar en ramas.</p>
+<h2 id="practicar">Practicar</h2>
+<p>Llegados a este punto es buen momento para empezar a practicar solos. Realiza las siguientes prácticas antes de continuar con los contenidos del tema:</p>
+<ul>
+<li>P1.1 Introducción a git y GitHub</li>
+<li>P1.2 Git Trabajando con ramas y uniones</li>
+<li>P1.3 Ejercicios Git y GitHub</li>
+<li>P1.4 Ejercicios Git y GitHub II</li>
+<li>P1.5 Git avanzado - Aprendiendo branching</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "toc.integrate", "search.highlight", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f13b1293.min.js"></script>
+      
+    
+  </body>
+</html>

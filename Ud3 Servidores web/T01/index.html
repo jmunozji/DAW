@@ -1,0 +1,3243 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jmunozji.github.io/DAW/Ud3%20Servidores%20web/T01/">
+      
+      
+        <link rel="prev" href="../../Ud2%20Contenedores/T09_tips/">
+      
+      
+        <link rel="next" href="../T02/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+    
+    
+      
+        <title>3.1. Implantación de arquitecturas web - Despliegue de aplicaciones web</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-3NX5MD5C8H"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-3NX5MD5C8H",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-3NX5MD5C8H",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implantacion-de-arquitecturas-web" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Despliegue de aplicaciones web" class="md-header__button md-logo" aria-label="Despliegue de aplicaciones web" data-md-component="logo">
+      
+  <img src="../../assets/logocaminas.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Despliegue de aplicaciones web
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.1. Implantación de arquitecturas web
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="green"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Despliegue de aplicaciones web" class="md-nav__button md-logo" aria-label="Despliegue de aplicaciones web" data-md-component="logo">
+      
+  <img src="../../assets/logocaminas.png" alt="logo">
+
+    </a>
+    Despliegue de aplicaciones web
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Despliegue de aplicaciones web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud0 Introduccion
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ud0 Introduccion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/Ud0_1Introalmodulo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.1. Introducción al módulo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/Ud0_2AWS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.2. Introducción a AWS Academy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.1. Linux Server en AWSAcademy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.2 Windows Server en AWSAcademy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.3. Conceder acceso a un segundo administrador
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.4. Comandos básicos Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud1 Control de versiones
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ud1 Control de versiones
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T01_index_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T02_cvs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Sistemas de control de versiones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T03_introduccion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Introducción a git 
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T04_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 Instalación y configuración de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T05_usobasico/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Uso básico de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T06_usoavanzado/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Uso avanzado de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T07_ramas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 Ramas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T08_github/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.8 Github
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T09_github-flow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.9 Flujo de trabajo en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T10_colaboracion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.10 Colaboración en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T11_gitflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.11 Flujo de trabajo con Git (git flow)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T12_github-zenodo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.12 Citar proyectos en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T13_othercommands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.13 Otros comandos de git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T14_referencias/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.14 Terminología y referencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_15" id="__nav_3_15_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_15">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.1 Introducción a git y GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.2 Git Trabajando con ramas y uniones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.3 Ejercicios Git y Github
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.4 Ejercicios Git y Github (II)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.5 Git avanzado - Aprendiendo branching
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.6 Introducción a Markdown
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud2 Contenedores
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Ud2 Contenedores
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T01_introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T02_installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 Instalación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T03_principales_acciones/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Principales acciones con Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T04_images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 Imágenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T05_volumes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 Volúmenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T06_integrandovolsyconts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6 Integrar contenedores y volúmenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T07_docker-compose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7 Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T09_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9 Trucos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud3 Servidores web
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ud3 Servidores web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    3.1. Implantación de arquitecturas web
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    3.1. Implantación de arquitecturas web
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aspectos-generales-de-arquitecturas-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aspectos generales de arquitecturas web.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitecturas-web-modelos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arquitecturas web. Modelos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arquitecturas web. Modelos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-modelo-cliente-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      El modelo cliente-servidor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelo-cliente-servidor-con-servidores-encadenados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modelo Cliente-Servidor con Servidores Encadenados
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicaciones-basadas-en-la-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aplicaciones Basadas en la Web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelo-peer-to-peer-p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modelo Peer-to-Peer (P2P)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servidores-web-y-de-aplicaciones-instalacion-y-configuracion-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidores web y de aplicaciones. Instalación y configuración básica
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Servidores web y de aplicaciones. Instalación y configuración básica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servidores-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidores web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores-de-aplicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidores de aplicaciones
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores-de-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidores de bases de datos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidores de archivos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores-de-directorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidores de directorio
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-y-recursos-de-una-aplicacion-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estructura y Recursos de una Aplicación Web
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estructura y Recursos de una Aplicación Web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura-multinivel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arquitectura Multinivel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura-modelo-vista-controlador" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arquitectura Modelo-Vista-Controlador
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arquitectura Modelo-Vista-Controlador">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estructura-de-directorios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estructura de Directorios
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptor-de-despliegue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Descriptor de Despliegue
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plataformas-web-libres-y-propietarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plataformas Web libres y propietarias
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plataformas Web libres y propietarias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plataforma-lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plataforma LAMP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plataforma-wisa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plataforma WISA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otras-plataformas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Otras plataformas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escalabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      Escalabilidad
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Escalabilidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escalabilidad-de-un-sistema-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Escalabilidad de un sistema web
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Escalabilidad de un sistema web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escalabilidad-vertical" class="md-nav__link">
+    <span class="md-ellipsis">
+      Escalabilidad vertical
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escalabilidad-horizontal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Escalabilidad horizontal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referencias
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2. Arquitectura Web. Implantación y administración de servidores web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3. Los protocolos HTTP y HTTPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4. Servidores web: Nginx vs Apache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.1 – Instalación y configuración de servidores web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.2 – Creación de un sitio virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.3 – Autenticación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica 3.4 - Activación HTTPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica 3.5 - Instalación de la pila LAMP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P06DockerizacionPHPNginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.6 - Instalación pila LAMP dockerizada
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PV01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 3.1 – Proxy inverso con Nginx
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PV02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 3.2 – Balanceo de carga con proxy inverso en Nginx
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PV03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica Voluntaria 3.3 - Proxy inverso y balanceo de carga con SSL en NGINX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud4 Servicios de red DNS y LDAP
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Ud4 Servicios de red DNS y LDAP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servicios de red implicados en el despliegue de aplicaciones web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Servicio DNS (Domain Name System)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Servicio de directorio LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P1DNS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1 - Configuración de un servidor DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P2DNSDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2 - Dockerización de un servidor DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P3LDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3 - Configuración de un servidor LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P4LDAPFicheros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4 - Carga de datos en servidor LDAP mediante ficheros ldif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P5LDAPDockerizacion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 5 - Dockerización de servidor LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P6AutenticacionApacheLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 6 - Autenticación Apache contra LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P7AutApacheLDAPDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 7 - Autenticación Apache contra LDAP dockerizada
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P8AutenticandoNginxLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8 - Autenticación Nginx contra LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/PV1DockerizacionLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PV1 - Dockerización de servidor web con usuarios autenticados mediante servicio de directorio (LDAP)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud5 Servicios de red FTP
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Ud5 Servicios de red FTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servidor de Transferencia de Ficheros
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Servidores y clientes FTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1 - Acceso a un servidor FTP público ftp.rediris.es
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Autenticación, control de acceso y cuotas.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2 - Instalar y Configurar el servidor vsFTPd sin cifrado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Protocolo de transferencia de ficheros seguro.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3. Configuración de servidor FTP con Cifrado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Utilización de FTP en el proceso de despliegue de la aplicación web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4. Dockerizar un servidor FTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud6 Servidores de aplicaciones
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Ud6 Servidores de aplicaciones
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servidores de aplicaciones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Despliegue de aplicaciones web.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Despliegue de aplicaciones Java
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P01-TomcatInstalacion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1: Instalación de Tomcat.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P02-TomcatDespliegue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2: Despliegue de aplicaciones con Tomcat.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P03-TomcatMaven/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3: Despliegue en Tomcat con Maven
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Despliegue de aplicaciones Javascript
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P04-NodeJS-Express/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4 - Despliegue de aplicaciones con Node Express
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P05-DockerizacionNodeJs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 5 - Dockerización del despliegue de una aplicación con Node.js
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P06-Cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 6 - Despliegue de una aplicación "clusterizada" con Node Express
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P07-Netlify/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica  7 - Despliegue de una aplicación en Netlify (Paas)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P08-Flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8 - Despliegue de una aplicación Flask (Python)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P09-FlaskEnDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 9 - Aplicación Python con Flask en Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/PV01-Heroku/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 1 - Despliegue de una aplicación Node.js en Heroku (PaaS)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. CI/CD (Continous Integration/Continous Deployment-Delivery).
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud7 CI CD
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ud7 CI CD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud7%20CI-CD/Ud8_1_cicd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8.1 - CI/CD (Integración y despliegue continuo)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud7%20CI-CD/P8_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8.1- Toma de contacto con CI/CD usando Github actions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="implantacion-de-arquitecturas-web"><strong>Implantación de arquitecturas web</strong></h1>
+<h2 id="aspectos-generales-de-arquitecturas-web">Aspectos generales de arquitecturas web.</h2>
+<p>La arquitectura de aplicaciones en entornos web difiere bastante de la de aplicaciones de escritorio, en la cual un programa se ejecuta directamente sobre la máquina en la que trabaja el usuario.</p>
+<p>El modelo de arquitectura básico que existe en toda <strong>aplicación web</strong> es el modelo llamado cliente-servidor, en el cual entran en juego diversas máquinas o plataformas, cada una de las cuales desarrolla un rol diferenciado en la ejecución de la aplicación. Según las necesidades y la complejidad de la aplicación, este modelo básico de arquitectura puede complicarse más o menos para lograr una mejor distribución de tareas, mejor rendimiento, fiabilidad, aumento de la capacidad de proceso, etc.</p>
+<h2 id="arquitecturas-web-modelos">Arquitecturas web. Modelos</h2>
+<p>Una aplicación distribuida está compuesta por una colección de ordenadores autónomos enlazados por una red de ordenadores y respaldados por un software que hace el conjunto actúe como un servicio integrado.</p>
+<h3 id="el-modelo-cliente-servidor">El modelo cliente-servidor</h3>
+<p>El modelo cliente-servidor es un modelo de arquitectura de aplicaciones en el cual se definen o se asignan principalmente dos roles a los ordenadores, que son, como el nombre del modelo indica, los roles de cliente y de servidor.</p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Client-server_model.svg"><img alt="Client-server model" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Client-server_model.svg/512px-Client-server_model.svg.png" /></a>
+<em>Imagen: Lubaochuan, CC BY-SA 4.0 <a href="https://commons.wikimedia.org/wiki/File:Client-server_model.svg">Wikimedia Commons</a></em></p>
+<p>En el modelo cliente-servidor, existen dos tipos de componentes:</p>
+<ul>
+<li>
+<p><strong>Clientes</strong>: realizan peticiones de servicio. Por lo general, los clientes inician la comunicación con el servidor.</p>
+</li>
+<li>
+<p><strong>Servidores</strong>: proveen servicios. Normalmente, los servidores esperan recibir peticiones. Una vez que han recibido una petición, la resuelven y devuelven el resultado al cliente.</p>
+</li>
+</ul>
+<p>El modelo cliente-servidor básico de la figura anterior es válido para aplicaciones web pequeñas, simples y que no tengan una gran carga de trabajo, es decir, un número reducido de clientes conectados simultáneamente.</p>
+<p>En entornos reales, es común que estas tres características no estén presentes, por lo que es necesario implementar una arquitectura más compleja pero también basada en el modelo cliente-servidor. Esta arquitectura puede presentar diferencias o extensiones al modelo básico para garantizar un buen rendimiento de las aplicaciones web, su fiabilidad y/o la capacidad de atender un gran número de peticiones de los clientes de forma simultánea en aplicaciones web de tamaño mediano o grande, y con un nivel de complejidad medio/alto. De esta necesidad surge el modelo siguiente.</p>
+<h3 id="modelo-cliente-servidor-con-servidores-encadenados">Modelo Cliente-Servidor con Servidores Encadenados</h3>
+<p>Cuando en una aplicación el servidor debe realizar tareas muy complejas o costosas de procesar, se pueden distribuir subtareas en varios servidores. De esta manera, un servidor puede actuar como cliente de otro servidor para delegar ciertas responsabilidades.</p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Client-Server_3-tier_architecture_-_en.png"><img alt="Arquitectura cliente-servidor de 3 niveles" src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Client-Server_3-tier_architecture_-_en.png" /></a>
+<em>Imagen: Michel Bakni, CC BY-SA 4.0 <a href="https://commons.wikimedia.org/wiki/File:Client-Server_3-tier_architecture_-_en.png">Wikimedia Commons</a></em></p>
+<p>Por ejemplo, cuando un cliente de una entidad bancaria accede a los servicios en línea de su banco a través de un navegador web (cliente), el cliente inicia una solicitud al servidor web del banco. Las credenciales de inicio de sesión del cliente se almacenan en una base de datos y el servidor web accede a la base de datos como cliente. Un servidor de aplicaciones interpreta los datos devueltos aplicando la lógica de negocios del banco y proporciona la salida al servidor web. Finalmente, el servidor web devuelve el resultado al navegador web del cliente para su visualización.</p>
+<h3 id="aplicaciones-basadas-en-la-web">Aplicaciones Basadas en la Web</h3>
+<p>Un caso particular de aplicaciones cliente-servidor son las aplicaciones que se ejecutan aprovechando la arquitectura web. Estas aplicaciones se basan en tener toda la capacidad de procesamiento en un servidor web (o conjunto de servidores) al que se accede desde un navegador web.</p>
+<p>Cuando un usuario hace clic en un enlace en una página web de su navegador, este genera una solicitud al servidor que contiene la información. Una vez que el servidor recibe la solicitud, devuelve el contenido. La comunicación entre el cliente y el servidor se realiza a través del protocolo HTTP.</p>
+<h3 id="modelo-peer-to-peer-p2p">Modelo Peer-to-Peer (P2P)</h3>
+<p>Existe un tipo de arquitectura en la cual todas las computadoras actúan simultáneamente como clientes y servidores. Estas redes se conocen como redes peer-to-peer (igual a igual).</p>
+<p><a href="https://commons.wikimedia.org/wiki/File:P2P_network.svg"><img alt="Red Peer-to-Peer (P2P)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/P2P_network.svg/512px-P2P_network.svg.png" /></a>
+<em>Imagen: The 360 Degree, CC BY-SA 4.0 <a href="https://commons.wikimedia.org/wiki/File:P2P_network.svg">Wikimedia Commons</a></em></p>
+<p>Un sistema peer-to-peer se caracteriza por ser un sistema distribuido en el cual todos los nodos tienen las mismas capacidades y responsabilidades, es decir, todos son clientes y servidores al mismo tiempo, lo que implica que toda la comunicación es simétrica.</p>
+<h2 id="servidores-web-y-de-aplicaciones-instalacion-y-configuracion-basica">Servidores web y de aplicaciones. Instalación y configuración básica</h2>
+<p>Durante las fases de desarrollo, puesta en producción y mantenimiento de una aplicación web, nos encontramos con varios tipos de servidores que llevan a cabo tareas específicas en el funcionamiento global.</p>
+<h3 id="servidores-web">Servidores web</h3>
+<p>Un servidor web es un servidor que permite el acceso a recursos a través del protocolo HTTP (Protocolo de Transferencia de Hipertexto) de internet.</p>
+<p>La definición original y estricta del concepto de servidor HTTP se refiere a aquellos servidores capaces de proporcionar acceso y permitir la gestión de un conjunto de recursos estáticos como respuesta a las peticiones recibidas de los clientes. Es decir, que permiten consultar, cargar y eliminar recursos del servidor. Estos recursos suelen ser documentos HTML o variantes de este formato y contenidos adjuntos o relacionados con estos documentos, como imágenes, videos, etc.</p>
+<p>Estos recursos suelen estar guardados en forma de archivos en dispositivos de almacenamiento propios del servidor.</p>
+<p>El concepto original de servidor web no contempla la posibilidad de generar de forma dinámica los contenidos a partir de la ejecución de código como respuesta a las peticiones. Sin embargo, en la actualidad, la mayoría de los servidores web admiten la instalación de módulos que permiten generar contenidos dinámicos a partir de la ejecución de programas escritos en diversos lenguajes de programación (PHP, JavaScript, Python, Perl, etc.), aunque esta característica es más propia de los servidores de aplicaciones.</p>
+<p>Algunos ejemplos de servidores web son Apache o Nginx, para sistemas operativos Linux, y Microsoft Internet Information Server, para Windows.</p>
+<h3 id="servidores-de-aplicaciones">Servidores de aplicaciones</h3>
+<p>Un servidor de aplicaciones, en general, es un servidor que ofrece a los clientes un servicio de ejecución de aplicaciones. Si nos centramos en las aplicaciones web, un servidor de aplicaciones es un software que controla la ejecución de programas. Los clientes, desde un navegador (usando el protocolo HTTP), acceden a una interfaz web desde donde ejecutarán la aplicación. Normalmente, los servidores de aplicaciones se utilizan en aplicaciones web con un alto grado de complejidad.</p>
+<p>Un servidor de aplicaciones web se puede entender como un servidor orientado a la ejecución de programas que puede recibir las peticiones de servicio y devolver los resultados utilizando los mismos protocolos (HTTP) y formatos de datos que los servidores web (HTML). Si el mismo servidor no tiene la capacidad de interactuar con estos protocolos, puede trabajar conjuntamente con el soporte de un servidor web que haga de intermediario entre el servidor de aplicaciones y el cliente. Los servidores de aplicaciones, además, suelen proporcionar un amplio conjunto de servicios complementarios orientados a la persistencia de datos, seguridad, control de transacciones y concurrencia, entre otros.</p>
+<p>Algunos ejemplos de servidores de aplicaciones son GlassFish (servidor Java EE, Oracle), Tomcat o Microsoft Internet Information Server (servidor .NET).</p>
+<h3 id="servidores-de-bases-de-datos">Servidores de bases de datos</h3>
+<p>Un servidor de bases de datos se utiliza para almacenar, recuperar y administrar los datos de una base de datos. El servidor gestiona las actualizaciones de datos, permite el acceso simultáneo de muchos servidores o usuarios web y garantiza la seguridad y la integridad de los datos.</p>
+<p>Entre sus funciones básicas, el software de servidores de bases de datos ofrece herramientas para facilitar y acelerar la administración de bases de datos. Algunas funciones son la exportación de datos, la configuración del acceso de usuarios y el soporte de datos.</p>
+<p>Algunos ejemplos de servidores de bases de datos son Oracle Database, MySQL, Microsoft SQL Server, PostgreSQL, MongoDB o Firebase.</p>
+<h3 id="servidores-de-archivos">Servidores de archivos</h3>
+<p>Un servidor de archivos es un servidor que permite gestionar a través de red la carga, descarga, actualización y eliminación de archivos almacenados en sus dispositivos desde computadoras cliente.</p>
+<p>En el ámbito de las aplicaciones web, los servidores de archivos se utilizan principalmente para implementar las aplicaciones en el servidor donde se ejecutarán. La implementación de una aplicación web en los servidores de producción generalmente implica la carga de grandes cantidades de archivos en estos servidores. Dado que el desarrollo y mantenimiento de estas aplicaciones se realiza en las máquinas de los programadores, se necesita un sistema de transferencia de archivos cada vez que se quiere actualizar la versión de producción de una aplicación.</p>
+<p>Uno de los protocolos más utilizados para la transferencia de archivos en la implementación de aplicaciones web es el protocolo FTP (Protocolo de Transferencia de Archivos), con sus variantes FTPS y SFTP para adaptarse a las necesidades actuales de seguridad.</p>
+<p>Algunos ejemplos de servidores de transferencia de archivos son ProFTPD o vsftpd, para sistemas operativos Linux, y Microsoft Internet Information Server, para Windows.</p>
+<h3 id="servidores-de-directorio">Servidores de directorio</h3>
+<p>Un servidor de directorio es un servidor que permite gestionar información administrativa sobre el entorno de una aplicación web, como pueden ser, por ejemplo, los usuarios autorizados con sus roles o permisos, etc.</p>
+<p>La utilidad principal de los servidores de directorio es facilitar la gestión de información relacionada con la explotación de aplicaciones web. La ventaja de gestionar esta información mediante este tipo de servidores es la centralización de datos y la facilidad de acceso mediante protocolos estándar como LDAP.</p>
+<p>Algunos ejemplos de servidores de directorio son OpenLDAP, para Linux, y Active Directory, para Windows.</p>
+<h2 id="estructura-y-recursos-de-una-aplicacion-web">Estructura y Recursos de una Aplicación Web</h2>
+<p>Las aplicaciones web, además de presentar una arquitectura cliente-servidor (hecho que no es necesario en el caso de las aplicaciones de escritorio), suelen estar estructuradas con una gran cantidad de archivos y recursos de diferentes tipos.</p>
+<p>Por esta razón, es necesario establecer directrices para organizar la ubicación de estos componentes y su interrelación durante la fase de desarrollo, así como también al momento de poner la aplicación en producción. De lo contrario, el desarrollo y mantenimiento de una aplicación de tamaño mediano o grande se convertirá en una tarea casi imposible de gestionar.</p>
+<p>Dejando de lado la organización o estructura impuesta por la elección de ciertas herramientas de desarrollo o un servidor web o de aplicaciones específico, estas aplicaciones se pueden estructurar según varios modelos de organización de sus componentes y recursos. Algunos de los modelos de estructuración de aplicaciones web que podemos encontrar más comúnmente son los que se describen a continuación.</p>
+<h3 id="arquitectura-multinivel">Arquitectura Multinivel</h3>
+<p>La arquitectura multinivel (multitier architecture) es un tipo específico de la arquitectura cliente-servidor en la cual los componentes y recursos de una aplicación se separan según su función. Una de las divisiones más utilizadas es la que separa el nivel de presentación, el nivel de lógica de aplicación y el nivel de gestión de datos.</p>
+<p>En este caso, la estructura concreta sería de tres niveles (3-tier architecture). El modelo se define como N-tier architecture (multinivel), ya que propone una división flexible de las aplicaciones en los niveles que sean necesarios para hacer más eficiente su desarrollo, mantenimiento y explotación.</p>
+<p>En este modelo, la división por niveles se realiza de forma lineal: el nivel 1 interactúa de forma directa y única con el nivel 2, el nivel 2 interactúa con el 3, y así sucesivamente.</p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Tres_capas.PNG"><img alt="Arquitectura Multinivel" src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Tres_capas.PNG" /></a>
+<em>Imagen: No machine-readable author provided. Master Will assumed (based on copyright claims)., Dominio público <a href="https://commons.wikimedia.org/wiki/File:Tres_capas.PNG">Wikimedia Commons</a></em></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Es importante diferenciar entre el concepto de multinivel (multitier o N-tier) y multicapa (multilayer o N-layer). En el caso del modelo multinivel, se considera que cada nivel, además de implementar una función concreta, es ejecutado por un hardware diferente al del resto de los niveles. En el modelo multicapa, cada capa desarrolla una función concreta que puede ser ejecutada por una misma computadora que se encarga también de la ejecución de otras capas.</p>
+</div>
+<h3 id="arquitectura-modelo-vista-controlador">Arquitectura Modelo-Vista-Controlador</h3>
+<p>La arquitectura Modelo-Vista-Controlador (Model-View-Controller o MVC) es una arquitectura que separa la representación de la información y la lógica de una aplicación de la interacción del usuario.</p>
+<p>Los tres elementos que definen esta arquitectura son:</p>
+<ul>
+<li><strong>Modelo:</strong> Contiene los datos de la aplicación, las reglas de negocio o la lógica de la aplicación y sus funciones.</li>
+<li><strong>Vista:</strong> Es la representación visible de la aplicación, la salida de los datos hacia el usuario, es decir, la interfaz.</li>
+<li><strong>Controlador:</strong> Controla la interacción del usuario (entrada de datos) y convierte esta interacción en órdenes o comandos para el modelo o la vista.</li>
+</ul>
+<p>La interrelación entre los elementos de esta arquitectura no sigue un modelo lineal como el modelo multinivel, sino que se trata de un modelo circular.</p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Model-View-Controller_Pattern.svg"><img alt="Patrón Modelo-Vista-Controlador" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Model-View-Controller_Pattern.svg/512px-Model-View-Controller_Pattern.svg.png" /></a>
+<em>Imagen: Behnam Esfahbod, CC BY-SA 3.0 <a href="https://commons.wikimedia.org/wiki/File:Model-View-Controller_Pattern.svg">Wikimedia Commons</a></em></p>
+<p>Paralelamente a la estructura de la aplicación, es necesario considerar que cada nivel, capa o módulo puede estar compuesto por un gran número de componentes y recursos de diversos tipos: archivos HTML, CSS, imágenes, etc.</p>
+<p>Por ello, es conveniente establecer un sistema de organización coherente y eficiente para estructurar todos estos componentes que se generan durante el desarrollo de una aplicación web. La mayoría de las plataformas de desarrollo avanzadas imponen mecanismos para organizar y describir de manera sistemática la ubicación, características y configuración de los componentes y recursos de las aplicaciones.</p>
+<p>Entre estos mecanismos, se destacan dos:</p>
+<h4 id="estructura-de-directorios">Estructura de Directorios</h4>
+<p>Las plataformas avanzadas de desarrollo de aplicaciones web suelen definir una estructura de directorios mínima que toda aplicación debe tener, a partir de la cual se despliegan los diferentes tipos de componentes. Los desarrolladores deben seguir las directrices de cada plataforma.</p>
+<h4 id="descriptor-de-despliegue">Descriptor de Despliegue</h4>
+<p>Existe un archivo de configuración en el cual se puede especificar el nombre, ubicación y parámetros de configuración de los diferentes componentes que conforman una aplicación. Esto permite tener dicha información centralizada, accesible y actualizable sin necesidad de modificar el código fuente de la aplicación. Este descriptor describe cómo se debe desplegar la aplicación en el servidor.</p>
+<h2 id="plataformas-web-libres-y-propietarias">Plataformas Web libres y propietarias</h2>
+<p>Una plataforma web es el entorno de desarrollo de software empleado para diseñar y ejecutar un sitio web. En términos generales, una plataforma web consta de cuatro componentes básicos:</p>
+<ol>
+<li><strong>Sistema operativo:</strong> Bajo el cual opera el equipo donde se hospedan las páginas web y que representa la base misma del funcionamiento del computador. En ocasiones limita la elección de otros componentes.</li>
+<li><strong>Servidor web:</strong> El software que maneja las peticiones desde equipos remotos a través de la Internet. En el caso de páginas estáticas, el servidor web simplemente provee el archivo solicitado, el cual se muestra en el navegador. En el caso de sitios dinámicos, el servidor web se encarga de pasar las solicitudes a otros programas que puedan gestionarlas adecuadamente.</li>
+<li><strong>Gestor de bases de datos:</strong> Se encarga de almacenar sistemáticamente un conjunto de registros de datos relacionados para ser usados posteriormente.</li>
+<li><strong>Lenguaje de programación interpretado:</strong> Controla las aplicaciones de software que corren en el sitio web.</li>
+</ol>
+<p>Diferentes combinaciones de los cuatro componentes señalados, basadas en las distintas opciones de software disponibles en el mercado, dan lugar a numerosas plataformas web, aunque, sin duda, hay dos que sobresalen del resto por su popularidad y difusión: <strong>LAMP</strong> y <strong>WISA</strong>.</p>
+<h3 id="plataforma-lamp">Plataforma LAMP</h3>
+<p>La plataforma LAMP trabaja enteramente con componentes de software libre y no está sujeta a restricciones propietarias. El nombre LAMP surge de las iniciales de los componentes de software que la integran:</p>
+<ul>
+<li><strong>Linux:</strong> sistema operativo.</li>
+<li><strong>Apache:</strong> servidor web.</li>
+<li><strong>MySQL:</strong> gestor de bases de datos.</li>
+<li><strong>PHP:</strong> lenguaje interpretado PHP, aunque a veces se sustituye por Perl o Python.</li>
+</ul>
+<h3 id="plataforma-wisa">Plataforma WISA</h3>
+<p>La plataforma WISA está basada en tecnologías desarrolladas por la compañía Microsoft; se trata, por lo tanto, de software propietario. La componen los siguientes elementos:</p>
+<ul>
+<li><strong>Windows:</strong> sistema operativo.</li>
+<li><strong>Internet Information Services (IIS):</strong> servidor web.</li>
+<li><strong>SQL Server:</strong> gestor de bases de datos.</li>
+<li><strong>ASP o ASP.NET:</strong> como lenguaje para scripting del lado del servidor.</li>
+</ul>
+<h3 id="otras-plataformas">Otras plataformas</h3>
+<p>Existen otras plataformas, como por ejemplo la configuración <strong>WAMP</strong> (Windows-Apache-MySQL-PHP), que es bastante común pero sólo como plataforma de desarrollo local. De forma similar, un servidor Windows puede correr con IIS y con MySQL y PHP. A esta configuración se la conoce como plataforma <strong>WIMP</strong>.</p>
+<p>Entre los servidores web más utilizados hoy en día, aparte de Apache e IIS, tenemos también a <strong>Nginx</strong>, un servidor web software libre que está demostrando un alto rendimiento. Nginx es capaz de atender una gran cantidad de peticiones simultáneas y tiene un mejor rendimiento que sus competidores al servir contenido estático. Sin embargo, su configuración es menos flexible que otros.</p>
+<p>Nginx también puede integrarse con PHP, dando lugar a plataformas tipo <strong>LNMP</strong> (Linux + Nginx + MySQL o MariaDB + PHP). Esta opción es también posible en Windows, dando lugar a plataformas <strong>WNMP</strong> (Windows + Nginx + MySQL o MariaDB + PHP).</p>
+<p>Existen muchas otras plataformas que trabajan con distintos sistemas operativos (Unix, MacOS, Solaris), servidores web (incluyendo algunos que se han cobrado relativa popularidad como Lighttpd y LiteSpeed), bases de datos (MariaDB, PostgreSQL, MongoDB) y otros lenguajes de programación.</p>
+<p><strong>XAMPP:</strong> <a href="https://www.apachefriends.org/es/index.html">XAMPP</a> es una forma fácil de instalar y usar el servidor web Apache con un sistema gestor de bases de datos (MariaDB), PHP y Perl. Basta con descargarlo, extraerlo y comenzar. En este momento hay cuatro versiones de XAMPP para Linux, Windows, Mac OS X y Solaris.</p>
+<h2 id="escalabilidad">Escalabilidad</h2>
+<p>Las aplicaciones web se ejecutan en un entorno donde el número de clientes que solicitan el servicio puede variar en gran medida en función del momento. Es por ello que hay una característica de esencial importancia como es la <strong>escalabilidad</strong>.</p>
+<p>En el entorno en que se ubican las aplicaciones web, uno de los principales factores que puede afectar al rendimiento de las mismas es el número de usuarios, ya que este puede verse incrementado de forma vertiginosa en un periodo de tiempo relativamente corto. El éxito o el fracaso de un sitio web orientado al usuario común vendrá determinado, entre otros aspectos, por el dimensionamiento del sistema sobre el que se instala y soporta el software que sustenta dicho sitio. En consecuencia, uno de los requisitos fundamentales de una aplicación web es que sea completamente escalable sin que un aumento de los recursos dedicados a la misma suponga modificación alguna en su comportamiento o capacidades.</p>
+<h3 id="escalabilidad-de-un-sistema-web">Escalabilidad de un sistema web</h3>
+<p>La escalabilidad de un sistema web puede ser:</p>
+<ul>
+<li><strong>Verticalmente:</strong> de manera ascendente "upgrades" a cada nodo.</li>
+<li><strong>Horizontalmente:</strong> consiste en aumentar el número de nodos.</li>
+<li><strong>Cluster:</strong> consiste en crear agrupaciones de servidores.</li>
+</ul>
+<h4 id="escalabilidad-vertical">Escalabilidad vertical</h4>
+<p>Habitualmente, la separación lógica en capas se implementa de tal forma que se permita una separación física de las mismas. Interponiendo elementos conectores que actúen de "middlewares" es posible distribuir la aplicación de forma vertical (una máquina por cada capa del sistema), e incluso si esto no fuera suficiente, distribuyendo los elementos de una misma capa entre distintas máquinas servidoras.</p>
+<h4 id="escalabilidad-horizontal">Escalabilidad horizontal</h4>
+<p>Se trata de clonar el sistema en otra máquina de características similares y balancear la carga de trabajo mediante un dispositivo externo. El balanceador de carga puede ser:</p>
+<ul>
+<li>
+<p><strong>Balanceador Software:</strong> Por ejemplo, es común encontrar un servidor web Apache junto con el módulo <code>mod_jk</code>, que permite redirigir las solicitudes HTTP configuradas entre las diferentes máquinas que conforman la granja de servidores. Estos balanceadores examinan el paquete HTTP e identifican la sesión del usuario, registrando qué máquina de la granja está atendiendo dicha sesión. Esto es crucial, ya que nos permite diseñar la aplicación teniendo en cuenta el objeto de sesión del usuario y almacenar información relevante de la sesión del mismo. Con esta garantía, todas las peticiones de una misma sesión HTTP se redirigen a la misma máquina.</p>
+</li>
+<li>
+<p><strong>Balanceador hardware:</strong> Son dispositivos que, siguiendo algoritmos de reparto de carga (como Round Robin, LRU - Menos Usado Recientemente, etc.), redirigen una solicitud HTTP del usuario a la máquina que corresponde según dicho algoritmo. Estos son más rápidos que los anteriores, ya que se basan en conmutación de circuitos y no examinan ni interpretan el paquete HTTP. Sin embargo, no aseguran el mantenimiento de la misma sesión de usuario en la misma máquina. Esto condiciona el diseño, ya que obliga a almacenar la información de sesión del usuario por parte del desarrollador, en cookies o en una base de datos.</p>
+</li>
+<li>
+<p><strong>Balanceador hardware HTTP:</strong> Son dispositivos hardware que examinan el paquete HTTP y mantienen la relación entre el usuario y la máquina servidora. Son más rápidos que los balanceadores software, pero ligeramente menos que los balanceadores hardware. Hoy en día, representan una de las soluciones más aceptadas en el mercado.</p>
+</li>
+</ul>
+<p><strong>Cluster:</strong></p>
+<p>Con la introducción de servidores de aplicaciones en cluster se abre una nueva capacidad de escalabilidad que puede clasificarse como vertical u horizontal, dependiendo de su implementación. Un cluster de servidores de aplicaciones permite desplegar una aplicación web convencional, distribuyendo su carga de trabajo entre la granja de servidores del cluster. Esto ocurre de manera transparente tanto para el usuario como para el administrador. Mediante el mecanismo de replicación de sesión, el cluster garantiza que sin importar cuál máquina atienda la solicitud HTTP, esta tendrá acceso a la sesión del usuario (objeto HttpSession en Java). Sin embargo, debido a la replicación de sesión, este tipo de sistemas suele presentar problemas de rendimiento.</p>
+<h2 id="referencias">Referencias</h2>
+<p><a href="https://ioc.xtec.cat/materials/FP/Recursos/fp_daw_m08_/web/fp_daw_m08_htmlindex/WebContent/u1/a1/continguts.html">IOC - Institut obert de Catalunya</a></p>
+<p><a href="https://apuntes-daw.javiergutierrez.trade/despliegue-de-aplicaciones/ut1/recopila.html">https://apuntes-daw.javiergutierrez.trade/despliegue-de-aplicaciones/ut1/recopila.html</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "toc.integrate", "search.highlight", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f13b1293.min.js"></script>
+      
+    
+  </body>
+</html>

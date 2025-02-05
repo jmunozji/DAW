@@ -1,0 +1,3227 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="En esta práctica vamos a utilizar Github actions para realizar una serie de test unitarios a una aplicación en NodeJS, al crearse un pull request. Tras ello, al realizar el merge del pull request con la rama main, se construirá una imagen Docker de la aplicación que se subirá tanto a Docker Hub como a Github container registry.">
+      
+      
+      
+        <link rel="canonical" href="https://jmunozji.github.io/DAW/Ud7%20CI-CD/P8_1/">
+      
+      
+        <link rel="prev" href="../Ud8_1_cicd/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+    
+    
+      
+        <title>Práctica 8.1- Toma de contacto con CI/CD usando Github actions - Despliegue de aplicaciones web</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-3NX5MD5C8H"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-3NX5MD5C8H",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-3NX5MD5C8H",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-81-toma-de-contacto-con-cicd-usando-github-actions" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Despliegue de aplicaciones web" class="md-header__button md-logo" aria-label="Despliegue de aplicaciones web" data-md-component="logo">
+      
+  <img src="../../assets/logocaminas.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Despliegue de aplicaciones web
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica 8.1- Toma de contacto con CI/CD usando Github actions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="green"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Despliegue de aplicaciones web" class="md-nav__button md-logo" aria-label="Despliegue de aplicaciones web" data-md-component="logo">
+      
+  <img src="../../assets/logocaminas.png" alt="logo">
+
+    </a>
+    Despliegue de aplicaciones web
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Despliegue de aplicaciones web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud0 Introduccion
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ud0 Introduccion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/Ud0_1Introalmodulo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.1. Introducción al módulo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/Ud0_2AWS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.2. Introducción a AWS Academy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.1. Linux Server en AWSAcademy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.2 Windows Server en AWSAcademy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.3. Conceder acceso a un segundo administrador
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.4. Comandos básicos Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud1 Control de versiones
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ud1 Control de versiones
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T01_index_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T02_cvs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Sistemas de control de versiones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T03_introduccion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Introducción a git 
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T04_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 Instalación y configuración de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T05_usobasico/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Uso básico de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T06_usoavanzado/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Uso avanzado de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T07_ramas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 Ramas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T08_github/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.8 Github
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T09_github-flow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.9 Flujo de trabajo en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T10_colaboracion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.10 Colaboración en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T11_gitflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.11 Flujo de trabajo con Git (git flow)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T12_github-zenodo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.12 Citar proyectos en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T13_othercommands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.13 Otros comandos de git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T14_referencias/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.14 Terminología y referencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_15" id="__nav_3_15_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_15">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.1 Introducción a git y GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.2 Git Trabajando con ramas y uniones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.3 Ejercicios Git y Github
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.4 Ejercicios Git y Github (II)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.5 Git avanzado - Aprendiendo branching
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.6 Introducción a Markdown
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud2 Contenedores
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Ud2 Contenedores
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T01_introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T02_installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 Instalación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T03_principales_acciones/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Principales acciones con Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T04_images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 Imágenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T05_volumes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 Volúmenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T06_integrandovolsyconts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6 Integrar contenedores y volúmenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T07_docker-compose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7 Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T09_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9 Trucos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud3 Servidores web
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ud3 Servidores web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1. Implantación de arquitecturas web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2. Arquitectura Web. Implantación y administración de servidores web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3. Los protocolos HTTP y HTTPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4. Servidores web: Nginx vs Apache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.1 – Instalación y configuración de servidores web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.2 – Creación de un sitio virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.3 – Autenticación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica 3.4 - Activación HTTPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica 3.5 - Instalación de la pila LAMP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P06DockerizacionPHPNginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.6 - Instalación pila LAMP dockerizada
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 3.1 – Proxy inverso con Nginx
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 3.2 – Balanceo de carga con proxy inverso en Nginx
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica Voluntaria 3.3 - Proxy inverso y balanceo de carga con SSL en NGINX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud4 Servicios de red DNS y LDAP
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Ud4 Servicios de red DNS y LDAP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servicios de red implicados en el despliegue de aplicaciones web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Servicio DNS (Domain Name System)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Servicio de directorio LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P1DNS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1 - Configuración de un servidor DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P2DNSDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2 - Dockerización de un servidor DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P3LDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3 - Configuración de un servidor LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P4LDAPFicheros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4 - Carga de datos en servidor LDAP mediante ficheros ldif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P5LDAPDockerizacion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 5 - Dockerización de servidor LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P6AutenticacionApacheLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 6 - Autenticación Apache contra LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P7AutApacheLDAPDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 7 - Autenticación Apache contra LDAP dockerizada
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/P8AutenticandoNginxLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8 - Autenticación Nginx contra LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/PV1DockerizacionLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PV1 - Dockerización de servidor web con usuarios autenticados mediante servicio de directorio (LDAP)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud5 Servicios de red FTP
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Ud5 Servicios de red FTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servidor de Transferencia de Ficheros
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Servidores y clientes FTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1 - Acceso a un servidor FTP público ftp.rediris.es
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Autenticación, control de acceso y cuotas.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2 - Instalar y Configurar el servidor vsFTPd sin cifrado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Protocolo de transferencia de ficheros seguro.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3. Configuración de servidor FTP con Cifrado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Utilización de FTP en el proceso de despliegue de la aplicación web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4. Dockerizar un servidor FTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud6 Servidores de aplicaciones
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Ud6 Servidores de aplicaciones
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servidores de aplicaciones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Despliegue de aplicaciones web.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Despliegue de aplicaciones Java
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P01-TomcatInstalacion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1: Instalación de Tomcat.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P02-TomcatDespliegue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2: Despliegue de aplicaciones con Tomcat.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P03-TomcatMaven/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3: Despliegue en Tomcat con Maven
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Despliegue de aplicaciones Javascript
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P04-NodeJS-Express/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4 - Despliegue de aplicaciones con Node Express
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P05-DockerizacionNodeJs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 5 - Dockerización del despliegue de una aplicación con Node.js
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P06-Cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 6 - Despliegue de una aplicación "clusterizada" con Node Express
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P07-Netlify/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica  7 - Despliegue de una aplicación en Netlify (Paas)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P08-Flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8 - Despliegue de una aplicación Flask (Python)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P09-FlaskEnDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 9 - Aplicación Python con Flask en Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/PV01-Heroku/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 1 - Despliegue de una aplicación Node.js en Heroku (PaaS)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. CI/CD (Continous Integration/Continous Deployment-Delivery).
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud7 CI CD
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ud7 CI CD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ud8_1_cicd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8.1 - CI/CD (Integración y despliegue continuo)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Práctica 8.1- Toma de contacto con CI/CD usando Github actions
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8.1- Toma de contacto con CI/CD usando Github actions
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introducción
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introducción">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Qué es Github actions?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acciones-previas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acciones previas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comenzamos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comenzamos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creando-nuestro-primer-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creando nuestro primer workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testeando-nuestro-codigo-con-un-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testeando nuestro código con un workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testeando nuestro código con un workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprobando-nuestro-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprobando nuestro workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#un-workflow-para-construir-imagenes-de-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Un workflow para construir imágenes de Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referencias
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="practica-81-toma-de-contacto-con-cicd-usando-github-actions">Práctica 8.1- Toma de contacto con CI/CD usando Github actions</h1>
+<h2 id="introduccion">Introducción</h2>
+<h3 id="que-es-github-actions">¿Qué es Github actions?</h3>
+<p>GitHub Actions es una plataforma de integración y despliegue continuos (CI/CD) que te permite automatizar tu proceso de compilación, pruebas y despliegue. Puedes crear flujos de trabajo (<em>workflows</em>) y crear y probar cada solicitud de cambios en tu repositorio o desplegar solicitudes de cambios fusionadas a producción. Todo se hace desde tu cuenta GitHub, así que no has de hacer nada adicional para usarla.</p>
+<p>GitHub Actions va más allá de solo DevOps y te permite ejecutar flujos de trabajo cuando otros eventos suceden en tu repositorio. Por ejemplo, puedes ejecutar un flujo de trabajo para que agregue automáticamente las etiquetas adecuadas cada vez que alguien cree una propuesta nueva en tu repositorio.</p>
+<p>GitHub proporciona máquinas virtuales Linux, Windows y macOS para que ejecutes tus flujos de trabajo o puedes hospedar tus propios ejecutores auto-hospedados en tu propio centro de datos o infraestructura en la nube.</p>
+<p>Un <strong>workflow</strong> ejecutará uno o más "jobs" que se definen mediante un archivo YAML. Estos archivos se ubican en el directorio <code>.github/workflows</code> de un repositorio y puede haber varios archivos de workflow para diferentes cometidos.</p>
+<p>Un <strong>evento</strong> es una actividad que dispara un flujo de trabajo o workflow. Estos eventos pueden ser un <em>push</em>, un <em>pull request</em> o un <em>merge</em>.</p>
+<p>Por último, los <strong>jobs</strong> son acciones o pasos que se ejecutan dentro de un workflow.</p>
+<p>Una <strong>acción</strong> es una aplicación personalizada para la plataforma de GitHub Actions que realiza una tarea compleja pero que se repite frecuentemente.</p>
+<p>Para entender detalladamente todos los componentes, podéis consultar <a href="https://docs.github.com/es/actions/learn-github-actions/understanding-github-actions">aquí</a>. Para entender bien el resto de la práctica te recomiendo su lectura.</p>
+<h2 id="acciones-previas">Acciones previas</h2>
+<div class="admonition warning">
+<p class="admonition-title">Atención</p>
+<p>Antes de comenzar esta práctica, debéis tener una cuenta en Docker Hub: <a href="https://hub.docker.com/">https://hub.docker.com/</a> y en GitHub <a href="https://github.com/">https://github.com/</a>.</p>
+</div>
+<p>En esta práctica vamos a unir muchas cosas que hemos aprendido en este curso y nos servirá de recopilatorio del curso. Así que te guiaré en puntos específicos de la misma, pero en otros te indicaré lo que has de hacer y deberás hacerlo por ti mismo. Puedes consultar prácticas pasadas si no sabes cómo hacer alguna cosa.</p>
+<p>Vamos a trabajar en AWS sobre una máquina virtual EC2 Debian con las opciones por defecto. </p>
+<p>Vamos a utilizar una aplicación simple en NodeJS, que correrá en un servidor Express. Por tanto, necesitamos tener instalados en nuestro sistema Node.js y Yarn.</p>
+<p>Así pues, las primeras acciones a realizar serán:</p>
+<ul>
+<li>En AWS crea una máquina virtual Debian con las opciones por defecto. Llámale "AnimalFarm" y a su grupo de seguridad ponle el mismo nombre.</li>
+<li>Actualiza los paquetes a la última versión.</li>
+<li>Instala Git y configúralo con tus datos, incluyendo el login para que pueda conectar con tu cuenta GitHub mediante clave ssh.</li>
+<li>Instala Docker y configúralo para que pueda hacer "push" de tus contenedores a tu cuenta DockerHub.</li>
+<li>Instala Node.js </li>
+<li>Instala Yarn.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Instalación de Yarn</p>
+<p>Yarn es un gestor de paquetes de JavaScript y en Debian se puede instalar mediante npm, apt o script. 
+<a href="https://kifarunix.com/install-yarn-on-debian-11/">Aquí</a> se explican los 3 métodos de instalación, elegid el que más os guste.</p>
+</div>
+<h2 id="comenzamos">Comenzamos</h2>
+<p>Como hemos comentado vamos a trabajar con una aplicación simple en NodeJS que se llama "Animal Farm", que correrá en un servidor Express.</p>
+<p>El objetivo de esta práctica será utilizar GitHub Actions para añadir ciertas automatizaciones iniciales a nuestro repositorio. Haremos que se <em>disparen</em> pruebas sobre nuestro código cuando se abra un <em>pull request</em> y, automáticamente, construiremos una imagen Docker para nuestra aplicación. Además, podremos hacer que dicha imagen <em>docker</em> se envíe automáticamente a DockerHub y a GitHub Container Registry, completando así el ciclo completo de integración y despliegue contínuo.</p>
+<p>La aplicación que usaremos está <a href="https://github.com/jamtur01/animal-farm-nodejs">aquí</a>. Empieza por hacer un fork de dicho repositorio en tu cuenta GitHub.</p>
+<div class="admonition nota">
+<p class="admonition-title">Nota</p>
+<p>Por si el propietario del repositorio lo borrara, puedes encontrar copia de los ficheros que contiene <a href="P8_1/animal-farm-nodejs-main.zip">aquí</a>. Puedes generar tu propio repositorio a partir de estos ficheros.</p>
+</div>
+<p>Ahora clona tu repositorio en local y echa un ojo a lo que tiene:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:jmunozji/animal-farm-nodejs.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>animal-farm-nodejs
+</code></pre></div>
+<p>En el paquete encontraremos lo siguiente:</p>
+<ul>
+<li>app.js - Es la aplicación que estamos desplegando</li>
+<li>test/test.js - Es el código que testeará si la aplicación app.js es correcta</li>
+<li>.github/workflows - Son los flujos que haremos que GitHub ejecute para testear la aplicación y desplegar los contenedores</li>
+</ul>
+<p>Iremos viendo todo poco a poco.</p>
+<p>Utilizamos ahora <strong>yarn</strong> para instalar los módulos requeridos de Node.js</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gp">$ </span>yarn<span class="w"> </span>install
+</code></pre></div>
+<p>Y utilizamos yarn una vez más para iniciar la aplicación:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gp">$ </span>yarn<span class="w"> </span>start
+</code></pre></div>
+<p>Si ahora accedemos a la IP de la máquina virtual, en el puerto 8080, deberíamos tener acceso al sitio web y ver la ejecución de la aplicación:</p>
+<p><img alt="imagen" src="01.png" /></p>
+<p>Si actualizáis varias veces, podréis ver qué otros animales hay en la granja. </p>
+<p>Para la ejecución y vamos a probar las pruebas. Tenemos una batería de pruebas, no muy exhaustiva, en el directorio <code>test</code>. Probemos a ejecutarlos con yarn:</p>
+<p><img alt="" src="02.png" /></p>
+<p>Llegados a este punto hemos probado la ejecución del programa y hemos realizado la batería de tests que comprueban que el código es correcto.</p>
+<h2 id="creando-nuestro-primer-workflow">Creando nuestro primer workflow</h2>
+<p>Todos los repositorios de GitHub vienen con <em>Actions</em> activado por defecto. Comprobad en vuestro repositorio que existe una pestaña llamada <strong>Actions</strong>. Los habilitaremos.</p>
+<p><img alt="" src="001.png" /></p>
+<p>Lo que necesitáis hacer es, en los <em>settings</em> de vuestro repositorio buscar el apartado de <em>Actions</em> y darle permisos para realizar cualquier acción si no está ya activada. Podéis consultar el procedimiento en detalle <a href="https://docs.github.com/es/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository">aquí</a></p>
+<p>Como ya hemos dicho, Actions ejecuta los workflows, los cuales suelen estar asociados a fases específicas del ciclo de desarrollo. Por ejemplo, un workflow que corra cuando se abra un "pull request". También hemos comentado que dentro de los workflows están los jobs, que son acciones individuales dentro de un workflow. Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Workflow 1
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    1. Clona el repositorio
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    2. Instala los prerrequisitos
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    3. Ejecuta los tests
+</code></pre></div>
+<p>En la <a href="#¿qué-es-github-actions">introducción</a> también se ha explicado dónde y cómo se definen estos workflows. El repositorio que hemos clonado ya los tiene definidos, así que vamos a verlos. En el repositorio clonado en nuestra Debian, comprobamos que existe el directorio donde se guardan los "workflows" y entraremos en él:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>ls<span class="w"> </span>.github/workflows
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>.github/workflows
+</code></pre></div>
+<h2 id="testeando-nuestro-codigo-con-un-workflow">Testeando nuestro código con un workflow</h2>
+<p>Como lo prometido es deuda, vamos a usar un workflow que ejecute nuestras pruebas (archivo ./test/test.js) cuando abramos un nuevo "pull request" en GitHub. Para ello se crea un archivo YAML.  </p>
+<p>En el directorio de nuestros workflows ya hay un archivo llamado <code>test</code>, que definirá nuestras pruebas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">ls test.yml</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El formato YAML puede llegar a ser bastante puñetero hasta que sea correcto. Podéis comprobar si vuestro archivo .yml está correctamente formateado en <a href="https://www.yamllint.com/">este validador online</a> </p>
+</div>
+<p>Y el contenido del archivo es el siguiente:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Animal Farm Node.js CI</span><span class="w">  </span><span class="c1">#(1)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="c1">#(2)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">   </span><span class="nt">branches</span><span class="p">:</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nt">jobs</span><span class="p">:</span><span class="w"> </span><span class="c1">#(3)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span><span class="w"> </span><span class="c1">#(4)</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w"> </span><span class="c1">#(5)</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout repository</span><span class="w"> </span><span class="c1"># (6)</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w"> </span><span class="c1">#(7)</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use Node.js</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-node@v1</span><span class="w"> </span><span class="c1">#(8)</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">      </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">        </span><span class="nt">node-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;18.x&#39;</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Yarn</span><span class="w"> </span><span class="c1">#(9)</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yarn</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yarn test</span>
+</code></pre></div>
+<ol>
+<li>Nombre descriptivo para nuestro workflow</li>
+<li>
+<p>En este bloque <em>on</em> definimos cuándo va a ejecutarse nuestro workflow:</p>
+<ul>
+<li>Cuando alguien haga push sobre la rama <strong>main</strong></li>
+<li>Cuando alguien abra un pull request desde la rama <strong>main</strong></li>
+</ul>
+</li>
+<li>
+<p>Aquí se definen los jobs, en nuestro caso uno solo: <code>build</code>. </p>
+</li>
+<li>Cada job corre en una <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on">plataforma esecífica</a>, pudiendo elegir entre Linux, Windows o MacOS. En nuestro caso particular vamos a ejecutar nuestro job en un contenedor usando Ubuntu Linux.</li>
+<li>Las tareas o <em>pasos</em> que ejecutará el job. Si un paso falla, por norma general, fallará todo el job.</li>
+<li>Nombramos cada paso del job</li>
+<li>Este paso básicamente hace un clonado del repositorio. 
+  Hace uso de una acción pre-empaquetada (<code>actions/checkout@v2</code>). Este tipo de acciones las suele proporcionar la comunidad de GitHub y, normalmente, ejecutan tareas que de otra forma supondrían múltiples pasos o supondrían una configuración muy repetitiva.</li>
+<li>Se trata de otra acción pre-empaquetada. Se encarga de intalar Node.js dentro del contenedor que está corriendo o ejecutando nuestro job. Podemos pasarle argumentos, en este caso con el bloque <code>with</code> le decimos qué versión de Node.js debe instalar.</li>
+<li>Estos pasos son el núcleo de nuestro job ya que se encargará de ejecutar yarn para instalar los módulos necesarios de Node.js y, en el último paso, ejecutar los tests con <code>yarn tests</code></li>
+</ol>
+<h3 id="comprobando-nuestro-workflow">Comprobando nuestro workflow</h3>
+<p>Vamos a realizar un cambio en nuestra aplicación para después crear un pull request con él.</p>
+<ol>
+<li>Crea una nueva rama y llámale "feat-nuevoanimal". </li>
+<li>Posiciónate en la nueva rama.</li>
+<li>Edita el filchero <code>app.js</code> , añadiendo un nuevo animal junto con su onomatopeya.</li>
+<li>Ejecuta los tests para ver si el código es correcto.</li>
+<li>Si los test no te dan OK, revisa y soluciona el motivo. Revisa el fichero test/test.js también.</li>
+<li>Confirma los cambios y súbe la nueva rama a GitHub.</li>
+<li>Comprueba en GitHub que se ha creado la nueva rama y que contiene los cambios realizados.</li>
+</ol>
+<details class="example">
+<summary>Solución</summary>
+<ol>
+<li>Creamos una nueva rama y nos posicionamos en ella con el comando:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp">  $ </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat-nuevoanimal
+</code></pre></div></li>
+<li>Edita con nano el fichero <code>app.js</code> añadiendo un nuevo animal junto con su onomatopeya. Guarda los cambios.</li>
+<li>Ejecuta los "test" en local. No te darán bien porque hay que modificar el fichero test/test.js para que tenga en cuenta el nuevo animal introducido. Modifícalo.</li>
+<li>Comprueba que los tests en local son correctos antes de continuar. No tendría mucho sentido que el programador suba al repositorio un código que no supera las pruebas localmente, ¿no?</li>
+<li>Confirma los cambios y súbelos a GitHub.
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>  $ git add app.js
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  $ git commit -a -m “Añadido un nuevo animal”
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  $ git push origin feat-nuevoanimal
+</code></pre></div></li>
+</ol>
+</details>
+<p>Ahora crearemos un pull request para esta rama. Recuerda que un "Pull request" es una solicitud para introducir en la rama principal los cambios realizados en una rama.</p>
+<p><img alt="" src="03.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Tened cuidado de hacer el "Pull request" de vuestra rama "feat-nuevoanimal" a vuestra rama "main" en vuestro repositorio y no sobre la rama main del proyecto principal "jamtur01/animal-farm-nodejs".</p>
+<p><img alt="" src="04.png" /></p>
+</div>
+<p>Recuerda que nuestro Workflow se ejecutaba en 2 ocasiones:</p>
+<ul>
+<li>Cuando alguien haga push sobre la rama <strong>main</strong></li>
+<li>Cuando alguien abra un pull request desde la rama <strong>main</strong></li>
+</ul>
+<p>En este caso hemos abierto el pull request. De forma automática se ejecutarán los tests para comprobar que el código que solicitamos incluir en la rama principal supera los tests antes de aceptar o rechazar el pull request. </p>
+<p><img alt="" src="06.png" /></p>
+<p>En la pestaña de checks podremos comprobar el estado de nuestro workflow.</p>
+<div class="admonition task">
+<p class="admonition-title">Tarea</p>
+<p>Comprueba si este workflow se ha completado con éxito (check verde) o no (aspa roja). En caso de no haberlo hecho, modifica el test con lo necesario y súbelo al repositorio para que se pueda completar con éxito. Recuerda, el test está definido en test/test.js </p>
+</div>
+<p>Cuando el workflow se ejecute correctamente, deberemos ver algo como esto:</p>
+<p><img alt="" src="../Ud8_img/7.1.Test.actions.ok.png" /></p>
+<h2 id="un-workflow-para-construir-imagenes-de-docker">Un workflow para construir imágenes de Docker</h2>
+<p>Nuestro objetivo ahora, puesto que hemos automatizado los tests a nuestro código, es que cuando éstos se completen con éxito, y se acepte el Pull Request haciendo merge con la rama principal, se construya una imagen Docker de nuestra aplicación y automáticamente se suba a los repositorios de Docker Hub y Github Container Registry (el repositorio para imágenes Docker de GitHub). </p>
+<p>En primer lugar, como ya sabemos, revisaremos y modificaremos el archivo para el nuevo workflow:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">cd .github/workflows</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="go">nano docker.yml</span>
+</code></pre></div>
+<p>Y lo editamos, introduciendo el código yaml necesario:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Publish Docker image</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nt">on</span><span class="p">:</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nt">jobs</span><span class="p">:</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="nt">build-and-push</span><span class="p">:</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">      </span><span class="p p-Indicator">-</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">      </span><span class="p p-Indicator">-</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up QEMU</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/setup-qemu-action@v1</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">      </span><span class="p p-Indicator">-</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Docker Buildx</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/setup-buildx-action@v1</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">      </span><span class="p p-Indicator">-</span>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Login to DockerHub</span>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/login-action@v1</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">          </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.DOCKERHUB_USERNAME }}</span>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.DOCKERHUB_TOKEN }}</span>
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="w">      </span><span class="p p-Indicator">-</span>
+<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Login to GitHub Container Registry</span>
+<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/login-action@v1</span>
+<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="w">          </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io</span>
+<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a><span class="w">          </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ github.repository_owner }}</span>
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GHRC_TOKEN }}</span>
+<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="w">      </span><span class="p p-Indicator">-</span>
+<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and push</span>
+<a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/build-push-action@v2</span>
+<a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a><span class="w">          </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a><span class="w">          </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./Dockerfile</span>
+<a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a><span class="w">          </span><span class="nt">push</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a><span class="w">          </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"> </span><span class="c1">#(1)</span>
+<a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a><span class="w">            </span><span class="no">jmunozji/animal-farm-nodejs:latest</span>
+<a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a><span class="w">            </span><span class="no">ghcr.io/jmunozji/animal-farm-nodejs:latest</span>
+</code></pre></div>
+<ol>
+<li>Sustituid <code>jmunozji</code> por vuestro nombre de usuario de Docker Hub y Github Container Registry (ghcr) respectivamente</li>
+</ol>
+<p>Vamos a analizar el contenido de este fichero:</p>
+<p>Hemos llamado a nuestro nuevo workflow <em>Publish Docker image</em>. En este caso nuestro bloque <code>on</code> sólo se "dispara" o activa cuando se produce un merge en la rama main.</p>
+<p>Tenemos un job en nuestro workflow llamado <code>build-and-push</code> que se ejecuta en <code>ubuntu-latest</code>. Este job hace check out (clonado) usando la action que usamos en nuestro anterior workflow. Tras ello, utiliza unas actions pre-empaquetadas nuevas, con el fin de configurar un entorno para construir imágenes de Docker usando QEMU y Docker buildx.</p>
+<div class="admonition note">
+<p class="admonition-title">Aclaración</p>
+<p><a href="https://wiki.archlinux.org/title/QEMU_(Espa%C3%B1ol)">Qemu</a> es una aplicación de código abierto que emula diferentes arquitecturas hardware y permite virtualizar.</p>
+<p><a href="https://docs.docker.com/build/">Buildx</a> es un plugin de Docker para ampliar las capacidades a la hora de construir imágenes.</p>
+</div>
+<p>Utilizamos otra Action para hacer login en ambos, Docker Hub y Github Container Registry. En los pasos de esta nueva Action vemos un nuevo elemento, las <u><strong>variables</strong></u></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="l l-Scalar l-Scalar-Plain">${{ secrets.DOCKERHUB_USERNAME }}</span>
+</code></pre></div>
+<p>Las Actions pueden usar variables para personalizar los workflows y permitir que introduzcamos datos externos. Estos datos pueden incluir secretos (secrets), como nuestro usuario y password/token de Docker Hub, variables de entorno como nuestro path o valores específicamente definidos por el usuario.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Los secretos cifrados permiten almacenar información sensible en un repositorio.</p>
+<p>Los secretos son variables cifradas que creas en una organización, repositorio o entorno de repositorio. Los secretos que creas están disponibles para utilizarse en los flujos de trabajo de GitHub Actions. GitHub garantiza que los secretos se cifren antes de llegar a GitHub y permanezcan cifrados hasta que los use en un flujo de trabajo.</p>
+<p>Más información <a href="https://docs.github.com/es/actions/security-guides/encrypted-secrets">aquí</a>.</p>
+</div>
+<p>Para configurar los secrets de nuestro repositorio, debemos acceder dentro de él a <code>Settings &gt; Secrets and variables &gt; Actions</code>:</p>
+<p><img alt="" src="../Ud8_img/7.1.Secrets.png" /></p>
+<p>Y ahí crearemos los secretos para nuestro repositorio con el mismo nombre que aparecen en el archivo del workflow, así como los valores pertinentes para vuestro caso.</p>
+<p>Para DockerHub podéis usar el usuario y contraseña o crear un Token para esta práctica. En caso de no tenerlo, podéis crearos un token en Docker Hub en <code>Account Settings &gt; Security</code>.</p>
+<p>Pero para conectarnos al Github Container Registry (el repositorio para imágenes Docker de GitHub) hemos de generar un Token personal (classic) de GitHub.</p>
+<p>Ve a tu usuario, Settings - Developer settings Personal access tokens - Tokens (classic) y selecciona "Generate new token" y asegúrate de darle estos permisos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>write:packages    Upload packages to GitHub Package Registry
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  read:packages   Download packages from GitHub Package Registry
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>delete:packages   Delete packages from GitHub Package Registry
+</code></pre></div>
+<p>Copia el token. Ahora ve al repositorio, Settings - Secrets and Variables - Actions. Crea un "New Repository Secret", llámale GHRC_TOKEN y asígnale el token que acabas de crear.</p>
+<p>En última instancia, nuestro workflow construye la nueva imagen de Docker usando el Dockerfile disponible en nuestro repositorio y hace <em>push</em> de la imagen construida tanto a Docker Hub como a Github Container Registry.</p>
+<div class="admonition warning">
+<p class="admonition-title">Cuidado</p>
+<p>No olvidéis hacer otra vez commit y push para subir este workflow al repositorio, de otra forma, al no existir en el repositorio y sólo en vuestra máquina local, no se ejecutará.</p>
+</div>
+<p>En este momento, si ya hemos entendido el fichero y hemos creado los "secrets" en el repositorio, ya podemos hacer que se ejecute el nuevo workout, que recordemos se "dispara" al hacer merge en la rama main.</p>
+<p>Así las cosas, hagamos merge de nuestro PR (Pull Request). Vamos a aceptar el "Pull request" con la opción "Merge pull request" y "Confirm merge". Esto activará nuestros dos workflows, el primero que correrá una vez más los tests para confirmar que la nueva rama main está funcionando correctamente y el segundo que construirá la imagen Docker y hará el push a los repositorios de imágenes.</p>
+<p><img alt="" src="05.png" /></p>
+<p>Si todo se ha hecho bien, funcionará correctamente.</p>
+<p>Merge del pull request:</p>
+<p><img alt="" src="07.png" /></p>
+<p>Resultado de los workflows:</p>
+<p><img alt="" src="../Ud8_img/7.1.Action.docker.1.png" /></p>
+<p><img alt="" src="../Ud8_img/7.1.Action.docker.2.png" /></p>
+<p>Ahora podemos comprobar que el contenedor se ha creado y subido tanto a DockerHub como a Github Container Registry.</p>
+<p>En DockerHub:</p>
+<ol>
+<li>Comprobad, entrando via web, que la imagen Docker que acabáis de construir está disponible en vuestro repositorio personal.
+<img alt="" src="08.png" /></li>
+<li>Comprobad que podéis descargarla y correr el contenedor asociado sin problemas:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="go">docker run -d -p 9000:8080 jmunozji/animal-farm-nodejs</span>
+</code></pre></div>
+3. Comprueba que el contenedor está funcionando correctamente accediendo a la aplicación en <code>http://IP_Maq_Virtual:9000</code> (hemos hecho corresponder el puerto 8080 del contenedor con el 9000 del anfitrión)</p>
+<p>En GitHub Container Registry</p>
+<ol>
+<li>Ve a Packages y comprueba que el contenedor está ahí. Quizás tengas que borrar los filtros para verlo.</li>
+<li>Desde la consola conéctate al repositorio de contenedores GitHub Container Regystry
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="gp">$ </span><span class="nb">export</span><span class="w"> </span><span class="nv">CR_PAT</span><span class="o">=</span>TUPERSONALACCESSTOKEN
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="gp">$</span>admin@ip-172-31-84-190:~$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$CR_PAT</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>docker<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>TUUSUARIOGITHUB<span class="w"> </span>--password-stdin
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="go">WARNING! Your password will be stored unencrypted in /home/admin/.docker/config.json.</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="go">Configure a credential helper to remove this warning. See</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="gp">https://docs.docker.com/engine/reference/commandline/login/#</span>credentials-store
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="go">Login Succeeded</span>
+</code></pre></div>
+  Cambia TUPERSONALACCESSTOKEN y TUUSUARIOGITHUB por tus valores personales. Ojo, este token no es el mismo que usamos antes. Deberás crear un token para este cometido con los permisos adecuados.</li>
+<li>Crea y lanza el contenedor con
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">9000</span>:8080<span class="w"> </span>ghcr.io/jmunozji/animal-farm-nodejs
+</code></pre></div></li>
+<li>Comprueba que el contenedor está funcionando correctamente accediendo a la aplicación en <code>http://IP_Maq_Virtual:9000</code> (hemos hecho corresponder el puerto 8080 del contenedor con el 9000 del anfitrión)</li>
+</ol>
+<p>Y esto es sólo una pequeñísima muestra de todo lo que se puede hacer con GitHub Actions. Probablemente no has captado toda la potencia al hacer la práctica poco a poco. Ahora que todo está preparado y funcionando prueba a hacer lo siguiente:</p>
+<ol>
+<li>Borra la rama feat-nuevoanimal</li>
+<li>Crea una nueva rama y posiciónate en ella.</li>
+<li>Crea un nuevo animal con su onomatopeya. Modifica el test adecuadamente</li>
+<li>Confirma cambios y haz un push de la nueva rama</li>
+<li>Crea un pull request.</li>
+<li>Comprueba cómo se ejecutan los test en GitHub. Si hay algún problema solucionalo.</li>
+<li>Haz el merge con la rama principal</li>
+<li>Comprueba cómo automáticamente se crean las imágenes docker en DockerHub y GHRC.</li>
+</ol>
+<h2 id="referencias">Referencias</h2>
+<p><a href="https://github.com/readme/guides/sothebys-github-actions">Build a CI/CD workflow with Github Actions </a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "toc.integrate", "search.highlight", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f13b1293.min.js"></script>
+      
+    
+  </body>
+</html>

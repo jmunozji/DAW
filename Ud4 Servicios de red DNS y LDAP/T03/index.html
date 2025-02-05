@@ -1,0 +1,3093 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jmunozji.github.io/DAW/Ud4%20Servicios%20de%20red%20DNS%20y%20LDAP/T03/">
+      
+      
+        <link rel="prev" href="../T02/">
+      
+      
+        <link rel="next" href="../P1DNS/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+    
+    
+      
+        <title>3 Servicio de directorio LDAP - Despliegue de aplicaciones web</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-3NX5MD5C8H"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-3NX5MD5C8H",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-3NX5MD5C8H",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#servicio-de-directorio-ldap" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Despliegue de aplicaciones web" class="md-header__button md-logo" aria-label="Despliegue de aplicaciones web" data-md-component="logo">
+      
+  <img src="../../assets/logocaminas.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Despliegue de aplicaciones web
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3 Servicio de directorio LDAP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="green"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Despliegue de aplicaciones web" class="md-nav__button md-logo" aria-label="Despliegue de aplicaciones web" data-md-component="logo">
+      
+  <img src="../../assets/logocaminas.png" alt="logo">
+
+    </a>
+    Despliegue de aplicaciones web
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Despliegue de aplicaciones web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud0 Introduccion
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ud0 Introduccion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/Ud0_1Introalmodulo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.1. Introducción al módulo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/Ud0_2AWS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.2. Introducción a AWS Academy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.1. Linux Server en AWSAcademy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.2 Windows Server en AWSAcademy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.3. Conceder acceso a un segundo administrador
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud0%20Introduccion/P0_4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P0.4. Comandos básicos Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud1 Control de versiones
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ud1 Control de versiones
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T01_index_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T02_cvs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Sistemas de control de versiones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T03_introduccion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Introducción a git 
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T04_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 Instalación y configuración de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T05_usobasico/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Uso básico de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T06_usoavanzado/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Uso avanzado de Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T07_ramas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 Ramas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T08_github/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.8 Github
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T09_github-flow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.9 Flujo de trabajo en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T10_colaboracion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.10 Colaboración en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T11_gitflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.11 Flujo de trabajo con Git (git flow)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T12_github-zenodo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.12 Citar proyectos en GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T13_othercommands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.13 Otros comandos de git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/T14_referencias/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.14 Terminología y referencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_15" id="__nav_3_15_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_15">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.1 Introducción a git y GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.2 Git Trabajando con ramas y uniones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.3 Ejercicios Git y Github
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.4 Ejercicios Git y Github (II)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1.5 Git avanzado - Aprendiendo branching
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud1%20Control%20de%20versiones/P6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1.6 Introducción a Markdown
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud2 Contenedores
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Ud2 Contenedores
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T01_introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T02_installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 Instalación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T03_principales_acciones/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Principales acciones con Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T04_images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 Imágenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T05_volumes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 Volúmenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T06_integrandovolsyconts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6 Integrar contenedores y volúmenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T07_docker-compose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7 Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud2%20Contenedores/T09_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9 Trucos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud3 Servidores web
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ud3 Servidores web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1. Implantación de arquitecturas web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2. Arquitectura Web. Implantación y administración de servidores web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3. Los protocolos HTTP y HTTPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4. Servidores web: Nginx vs Apache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.1 – Instalación y configuración de servidores web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.2 – Creación de un sitio virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.3 – Autenticación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica 3.4 - Activación HTTPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica 3.5 - Instalación de la pila LAMP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/P06DockerizacionPHPNginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3.6 - Instalación pila LAMP dockerizada
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 3.1 – Proxy inverso con Nginx
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 3.2 – Balanceo de carga con proxy inverso en Nginx
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud3%20Servidores%20web/PV03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practica Voluntaria 3.3 - Proxy inverso y balanceo de carga con SSL en NGINX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud4 Servicios de red DNS y LDAP
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Ud4 Servicios de red DNS y LDAP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servicios de red implicados en el despliegue de aplicaciones web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Servicio DNS (Domain Name System)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    3 Servicio de directorio LDAP
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    3 Servicio de directorio LDAP
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introducción
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilidad-de-un-servicio-de-directorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilidad de un servicio de directorio.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directorio-vs-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Directorio vs DNS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-ldap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Qué es LDAP?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-openldap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Qué es OpenLDAP?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funcionan-ldap-y-openldap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Cómo funcionan LDAP y OpenLDAP?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integracion-del-servicio-de-directorio-con-otros-servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integración del servicio de directorio con otros servicios.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-formato-de-intercambio-de-datos-ldif" class="md-nav__link">
+    <span class="md-ellipsis">
+      El formato de intercambio de datos LDIF
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referencias
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1DNS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1 - Configuración de un servidor DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2DNSDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2 - Dockerización de un servidor DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3LDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3 - Configuración de un servidor LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P4LDAPFicheros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4 - Carga de datos en servidor LDAP mediante ficheros ldif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P5LDAPDockerizacion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 5 - Dockerización de servidor LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P6AutenticacionApacheLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 6 - Autenticación Apache contra LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P7AutApacheLDAPDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 7 - Autenticación Apache contra LDAP dockerizada
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P8AutenticandoNginxLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8 - Autenticación Nginx contra LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PV1DockerizacionLDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PV1 - Dockerización de servidor web con usuarios autenticados mediante servicio de directorio (LDAP)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud5 Servicios de red FTP
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Ud5 Servicios de red FTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servidor de Transferencia de Ficheros
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Servidores y clientes FTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1 - Acceso a un servidor FTP público ftp.rediris.es
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Autenticación, control de acceso y cuotas.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2 - Instalar y Configurar el servidor vsFTPd sin cifrado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Protocolo de transferencia de ficheros seguro.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3. Configuración de servidor FTP con Cifrado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/T05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Utilización de FTP en el proceso de despliegue de la aplicación web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud5%20Servicios%20de%20red%20FTP/P04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4. Dockerizar un servidor FTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud6 Servidores de aplicaciones
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Ud6 Servidores de aplicaciones
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Servidores de aplicaciones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Despliegue de aplicaciones web.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Despliegue de aplicaciones Java
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P01-TomcatInstalacion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 1: Instalación de Tomcat.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P02-TomcatDespliegue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 2: Despliegue de aplicaciones con Tomcat.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P03-TomcatMaven/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 3: Despliegue en Tomcat con Maven
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Despliegue de aplicaciones Javascript
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P04-NodeJS-Express/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 4 - Despliegue de aplicaciones con Node Express
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P05-DockerizacionNodeJs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 5 - Dockerización del despliegue de una aplicación con Node.js
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P06-Cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 6 - Despliegue de una aplicación "clusterizada" con Node Express
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P07-Netlify/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica  7 - Despliegue de una aplicación en Netlify (Paas)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P08-Flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8 - Despliegue de una aplicación Flask (Python)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/P09-FlaskEnDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 9 - Aplicación Python con Flask en Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/PV01-Heroku/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica Voluntaria 1 - Despliegue de una aplicación Node.js en Heroku (PaaS)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud6%20Servidores%20de%20aplicaciones/T07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. CI/CD (Continous Integration/Continous Deployment-Delivery).
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ud7 CI CD
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ud7 CI CD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud7%20CI-CD/Ud8_1_cicd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8.1 - CI/CD (Integración y despliegue continuo)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Prácticas
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Prácticas
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ud7%20CI-CD/P8_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Práctica 8.1- Toma de contacto con CI/CD usando Github actions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="servicio-de-directorio-ldap">Servicio de directorio LDAP</h1>
+<h2 id="introduccion">Introducción</h2>
+<p>Seguramente habrás utilizado más de una vez algún tipo de directorio o servicio de directorio, como por ejemplo: una guía telefónica impresa en papel o una revista con la programación televisiva.</p>
+<p><img alt="" src="../Ud5_3/ud52_3.jpeg" /></p>
+<p>Los directorios, por lo tanto, permiten localizar información y para ello definen qué información se almacenará y en qué modo.</p>
+<p>Los directorios anteriormente comentados presentan una serie de problemas, en contra de los directorios electrónicos, a saber:</p>
+<ul>
+<li>
+<p>Son <strong>estáticos</strong>: Por contra, los directorios electrónicos pueden ser consultados/actualizados en tiempo real, por lo que su fiabilidad es mucho mayor.</p>
+</li>
+<li>
+<p>Son <strong>inflexibles</strong>: en el contenido y en su organización. Por contra, los directorios electrónicos pueden modificar cualquier contenido y éste se verá reflejado al instante.</p>
+</li>
+<li>
+<p>Son <strong>inseguros</strong>: dificultad para controlar el acceso a la información. Los directorios electrónicos sí permiten controlar el acceso a la información: solamente aquel que disponga de las claves de acceso obtendrá la información.</p>
+</li>
+<li>
+<p><strong>Difícilmente configurable</strong>: ¿Cómo hacer en la guía telefónica para realizar una búsqueda solamente sobre un segundo apellido, de una zona urbana y con teléfonos que poseen dos números que tú determines? Por contra, los directorios electrónicos pueden establecer la información que recibe una persona en función de sus necesidades.</p>
+</li>
+</ul>
+<h2 id="utilidad-de-un-servicio-de-directorio">Utilidad de un servicio de directorio.</h2>
+<p>Por lo visto anteriormente los directorios electrónicos permiten, de forma eficiente:</p>
+<ul>
+<li>
+<p><strong>Encontrar información</strong>:</p>
+<p>Los directorios electrónicos a diferencia de los clásicos permiten acceder a la información contenida en los mismos de múltiples formas. Así, comparando con la guía telefónica tradicional, un directorio electrónico permite realizar búsquedas, no solamente por orden alfabético, sino también por: apellido: dirección, teléfono… ¿Cómo realizarías una búsqueda por teléfono en una guía telefónica tradicional?</p>
+<p>Es más, podrías sumar campos de búsqueda, como por ejemplo: dirección y apellido.</p>
+</li>
+<li>
+<p><strong>Gestionar información</strong>:</p>
+<p>En los directorios electrónicos pueden existir varios usuarios que en tiempo real estén realizando modificaciones, como agregar/editar/eliminar distintos usuarios con sus correspondientes campos. Además, esta información ya estaría visible para todas aquellas aplicaciones que accedan a la misma. Centralizar así los datos en un directorio evita tener que sincronizar varios directorios, con el consiguiente riesgo que esto provoca, pues: ¿qué pasaría si la sincronización no tuvo lugar y una aplicación accede a los datos? Pues sí, obtendría los datos no actualizados, o error en los mismos.</p>
+<p>Un caso muy común es el de los servidores Web con autenticación: si solamente dispones de un servidor web la solución es sencilla, puesto que solamente se necesitaría actualizar una base de datos de usuarios, pero ¿y si dispones de más de un servidor web que debe acceder a la misma base de datos? Entonces, la cosa se complica, puesto que debes sincronizar a los distintos servidores. Es más, y si esa base de datos la quisiéramos aprovechar para ofrecer otro servicio distinto del de los servidores web? Pues, todo el trabajo no sería aprovechable, y por lo tanto sería mejor desde un principio adaptar este sistema a los servicios de directorios.</p>
+</li>
+<li>
+<p><strong>Control de seguridad</strong>:</p>
+<p>Los servicios de directorios no simplemente permiten delimitar el acceso a los usuarios, sino que también proporcionan una solución al problema de gestión de certificados digitales. Así, permiten:</p>
+<ul>
+<li>
+<p>Su <strong>creación</strong>: Incorporar a los certificados los datos contenidos en el directorio.</p>
+</li>
+<li>
+<p>Su <strong>distribución</strong>: Tener accesibles mediante un protocolo estándar los certificados.</p>
+</li>
+<li>
+<p>Su <strong>destrucción</strong>: Revocar los certificados de forma sencilla simplemente borrando el certificado del directorio.</p>
+</li>
+<li>
+<p>Su <strong>ubicación</strong>: Los usuarios pueden acceder a través del directorio a los certificados de los restantes usuarios, de forma muy sencilla y fácil de integrar con las aplicaciones.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Por todo ello las aplicaciones prácticas que poseen los servicios de directorio son muy diversas y ventajosas, como por ejemplo:</p>
+<ul>
+<li>autenticación de usuarios: en aplicaciones web, correo electrónico, RADIUS..., </li>
+<li>sistemas de control de entradas a edificios, </li>
+<li>bases de datos comunes en organizaciones, </li>
+<li>en sistemas operativos: <ul>
+<li>gestión de cuentas de acceso, </li>
+<li>servidores de certificados, </li>
+<li>libretas de direcciones compartidas...</li>
+</ul>
+</li>
+</ul>
+<h2 id="directorio-vs-dns">Directorio vs DNS</h2>
+<p>Tanto un servicio de directorio como un servicio DNS proporcionan acceso a una base de datos jerárquica, pero difieren en:</p>
+<ul>
+<li>
+<p>Los servidores de directorio no están particularizados a una acción concreta sino orientados de forma más general, mientras que el servicio DNS está dedicado a la traducción de nombres de dominios a direcciones IP.</p>
+</li>
+<li>
+<p>La información almacenada en el servicio de directorio no es fija, mientras que en el servicio DNS tiene una estructura fija.</p>
+</li>
+<li>
+<p>El servicio de directorio permite actualizaciones, mientras que el servicio DNS no las permite, ¿o puedes actualizar a tu antojo los servidores raíz DNS?</p>
+</li>
+<li>
+<p>Los servicios de directorio suelen utilizar protocolos orientados a conexión (TCP), mientras que el servicio DNS opera con protocolos no orientados a conexión (UDP).</p>
+</li>
+</ul>
+<p>Pero, no por ello, poseen el impedimento de trabajar juntos, es más, usualmente los encontrarás unidos de la mano en aplicaciones web con distintas funcionalidades, como: servidores de correo, gestión de proyectos e incidencias, servidores RADIUS, etc. </p>
+<p>Así, suele ser necesario acceder a las URL de las aplicaciones web mediante nombres de dominio DNS y una vez en ellas autenticarse por medio de LDAP.</p>
+<h2 id="que-es-ldap">¿Qué es LDAP?</h2>
+<p><img alt="LDAP" src="../Ud5_1/LDAP.png" /></p>
+<p>LDAP es un protocolo que ofrece el acceso a un servicio de directorio implementado sobre un entorno de red, con el objeto de acceder a una determinada información. Puede ejecutarse sobre TCP/IP o sobre cualquier otro servicio de trasferencia orientado a la conexión.</p>
+<p>LDAP son las siglas en inglés de <strong>Lightweight Directory Access Protocol</strong> (Protocolo Ligero de Acceso a Directorios) y podemos considerarlo como un sistema de almacenamiento de red (normalmente construido como una base de datos) al que se pueden realizar consultas.</p>
+<p>El protocolo LDAP se creó originalmente en la Universidad de Míchigan, que publicó un primer desarrollo en 1993. Más tarde, Tim Howes y Steve Killela, dos de los diseñadores originales del proyecto comienzan a trabajar en una nueva versión bajo los auspicios de IETF (Internet Engineering Task Force) completando el desarrollo original.</p>
+<p>La nueva versión (LDAPv3) se publicó en 1997 e integraba mecanismos de autenticación sencilla y capa de seguridad. Después de esto, la IETF ha añadido numerosas extensiones y especificaciones propias que le han ido incorporando nuevas capacidades.</p>
+<h2 id="que-es-openldap">¿Qué es OpenLDAP?</h2>
+<p>La respuesta es muy sencilla: OpenLDAP es un desarrollo del protocolo LDAP, implementado con la filosofía del <strong>software libre y código abierto</strong>.</p>
+<p><img alt="" src="../Ud5_3/isor1202.png" /></p>
+<p>El proyecto OpenLDAP se inició en agosto de 1998 y está sustentado por una entidad sin ánimo de lucro llamada OpenLDAP Foundation, creada por el desarrollador estadounidense Kurt D. Zeilenga para coordinar las actividades del proyecto.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>OpenLDAP se publica bajo su propia licencia <a href="http://www.openldap.org/software/release/license.html">OpenLDAP Public License</a></p>
+</div>
+<p>Como ocurría en el caso de LDAP, OpenLDAP está muy optimizado para ofrecer los mejores resultados en situaciones que requieran operaciones de lectura intensivas. De esta forma, un directorio OpenLDAP arrojará unos resultados muy superiores a los que ofrece una base de datos relacional optimizada, cuando realicemos operaciones de consulta intensivas sobre ambas.</p>
+<p>Por el contrario, si utilizáramos un directorio OpenLDAP para guardar datos que sean actualizados de manera frecuente, los resultados obtenidos serían muy inferiores a los ofrecidos por una base de datos relacional.</p>
+<p>No sólo podemos encontrar OpenLDAP en la mayoría de de las distribuciones Linux, sino que también lo encontramos para Microsoft Windows, Apple OSX, Solaris, HP-UX, BSD, etc.</p>
+<h2 id="como-funcionan-ldap-y-openldap">¿Cómo funcionan LDAP y OpenLDAP?</h2>
+<p>El modelo de información de LDAP se basa en entradas, entendiendo por entrada un conjunto de atributos identificados por un nombre global único (Distinguished Name – DN), que se utiliza para identificarla de forma específica. Las entradas se organizan de forma lógica y jerárquica mediante un esquema de directorio, que contiene la definición de los objetos que pueden formar parte del directorio. Al esquema del directorio le llamamos <strong>DIT o Directory Information Tree</strong>.</p>
+<p><img alt="img" src="../Ud5_3/ud52_1.png" /></p>
+<p>Cada entrada del directorio DIT representa un objeto, que puede ser abstracto o real: una persona, un mueble o una función en la estructura de una empresa, etc.</p>
+<p>Cada nodo del DIT podemos identificarlo de 2 formas</p>
+<ul>
+<li>
+<p><strong>Relative Distinguished Name RDN</strong>, que es su nombre relativo, sin tener en cuenta en la posición del árbol en que está respecto a sus nodos padres. Por ejemplo, el primero tiene de RDN dc=com. Este puede indicar lo que se desee, por ejemplo ou=usuarios significa "unidad organizativa".</p>
+</li>
+<li>
+<p><strong>Distinguished Name DN</strong> que es la unión de su RDN con el de sus nodos padres. Así, Rompe Techos tiene como DN cn=Rompe Techos, ou=usuarios, I=Castellon, dc=san-gva, dc=com.</p>
+</li>
+</ul>
+<p>Cada nodo o entrada estará formado por varios atributos. Cada atributo tendrá un tipo y un valor con el formato atributo/valor que permite caracterizar un aspecto del objeto que define la entrada. Estos atributos tienen nombres que hacen referencia a su contenido y pueden ser de dos tipos:</p>
+<ul>
+<li>
+<p><strong>Atributos normales</strong>: Son los atributos que identifican al objeto (nombre, apellidos, etc.).</p>
+</li>
+<li>
+<p><strong>Atributos operativos</strong>: Son los atributos que utiliza el servidor para administrar el directorio (fecha de creación, tamaño, etc.).</p>
+</li>
+</ul>
+<p>Entre los atributos que suelen emplearse habitualmente, encontramos los siguientes, aunque puede haber muchos más:</p>
+<ul>
+<li>uid (user id): Identificación única de la entrada en el árbol.</li>
+<li>objectClass: Indica el tipo de objeto al que pertenece la entrada.</li>
+<li>cn (common name): Nombre de la persona representada en el objeto.</li>
+<li>givenname: Nombre de pila.</li>
+<li>sn (surname): Apellido de la persona.</li>
+<li>o (organization): Entidad a la que pertenece la persona.</li>
+<li>u (organizational unit): El departamento en el que trabaja la persona.</li>
+<li>mail: dirección de correo electrónico de la persona.</li>
+</ul>
+<p>Obviamente, los atributos anteriores hacen referencia a un tipo de objeto que representa a los miembros de una empresa. Para representar a otros tipos de objetos, necesitaríamos atributos diferentes.</p>
+<p>De esta forma, una entrada almacenada en el directorio LDAP podría tener el siguiente aspecto:</p>
+<div class="highlight"><pre><span></span><code>    dn: uid=Rompe Techos, ou=usuarios, I=Castellon, dc=san-gva
+    objectClass: person 
+    cn: Rompe Techos
+    givenname: Rompe
+    sn: Techos
+    o: usuarios 
+    u: Castellon
+    mail: rompetechos@san-gva.es
+</code></pre></div>
+<p>Como hemos dicho antes, las diferentes entradas se organizan a modo de árbol jerárquico que, normalmente, representa una estructura organizativa o geográfica en particular. Así, las entradas que representan comunidades autónomas aparecerán en la parte superior del árbol, debajo estarán las que representan provincias, después las ciudades, los departamentos, los usuarios, etc.</p>
+<p>En la actualidad, las implementaciones de LDAP suelen utilizar DNS (Domain Name Service) para la estructura de los niveles superiores del árbol. En los niveles inferiores, sin embargo, las entradas representarán otro tipo de unidades organizativas, usuarios o recursos.</p>
+<p>Por otra parte, gracias al uso de un atributo especial llamado <strong>objectClass</strong>, podemos controlar qué atributos son válidos y cuáles imprescindibles en una entrada. Los valores de objectClass establecen las reglas que debe seguir el valor de una entrada.</p>
+<p>Lógicamente, LDAP establece operaciones para consultar o actualizar el directorio. Estas nos permiten crear o eliminar entradas y modificar entradas existentes.</p>
+<p>La mayor parte del tiempo, LDAP se utiliza para diversas consultas sobre la información que contiene, por lo que es común que la estructura de su base de datos se encuentre optimizada para la lectura en detrimento de la escritura.</p>
+<p>Como vemos, LDAP puede utilizarse para organizar de forma unificada el acceso a la información representativa de una red. Sin embargo, es muy frecuente que también almacene la información de autenticación para los usuarios y/o recursos. De esta forma, se facilita el control de acceso sobre los datos contenidos en el servidor.</p>
+<p>Aunque ya hemos visto al principio un esquema de funcionamiento mucho más detallado, podríamos representar el funcionamiento de LDAP de una forma más abstracta con el siguiente esquema:</p>
+<p><img alt="ud52_2" src="../Ud5_3/ud52_2.png" /></p>
+<p>Por último, LDAP incluye servicios de integridad y confidencialidad de los datos que contiene.</p>
+<h2 id="integracion-del-servicio-de-directorio-con-otros-servicios">Integración del servicio de directorio con otros servicios.</h2>
+<p>De lo expuesto anteriormente puede deducirse que el servicio de directorio es importante en sí mismo, pero es fundamental para aglutinar información que puede ser fuente de objeto para desplegar nuevos servicios basados en la cooperación entre las distintas aplicaciones y el servicio de directorio.</p>
+<p>Así, el servicio de directorio puede actuar como servidor de autenticación, proporcionando el servicio de contraseña única. Además puede contener información necesaria para que los distintos servidores puedan decidir si un usuario puede acceder a determinada información.</p>
+<p>Puedes utilizar el servicio de directorio como repositorio en el cual almacenar la información que varios servidores deben compartir, por ejemplo: la configuración, información sobre el control de acceso, etc.</p>
+<h2 id="el-formato-de-intercambio-de-datos-ldif">El formato de intercambio de datos LDIF</h2>
+<p>El formato LDIF es el estándar para representar entradas del directorio en formato texto ASCII, que posee la siguiente sintaxis:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>dn: &lt;nombre distinguido&gt;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>&lt;nombre_atributo&gt;: &lt;valor&gt;
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>&lt;nombre_atributo&gt;: &lt;valor&gt;
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>&lt;nombre_atributo&gt;: &lt;valor&gt;
+</code></pre></div>
+<p>Así, una entrada del directorio en formato de intercambio de datos LDIF consiste en dos partes:</p>
+<ul>
+<li>
+<p>El <strong>DN</strong> que debe figurar en la primera línea de la entrada y que se compone de la cadena dn: seguida del nombre distinguido (DN) de la entrada.</p>
+</li>
+<li>
+<p>Los <strong>atributos de la entrada</strong>.</p>
+<ul>
+<li>Cada atributo se compone de un nombre de atributo, seguido del carácter dos puntos ':' y el valor del atributo. </li>
+<li>Si hay atributos multivaluados deben ponerse seguidos.</li>
+<li>No existe ningún orden preestablecido para la colocación de los atributos, pero es conveniente listar primero el atributo objectclass, para mejorar la legibilidad de la entrada.</li>
+</ul>
+</li>
+</ul>
+<p>En un archivo LDIF puede haber mas de una entrada definida, cada entrada se separa de las demás por una línea en blanco. A su vez, cada entrada puede tener una cantidad arbitraria de pares <code>&lt;nombre_atributo&gt;:&lt;valor&gt;</code>.</p>
+<p>Este formato es útil tanto para realizar copias de seguridad de los datos de un servidor LDAP, como para importar pequeños cambios que se necesiten realizar manualmente en los datos, siempre manteniendo la independencia de la implementación LDAP y de la plataforma donde esté instalada.</p>
+<p>A continuación puedes observar un ejemplo de una entrada para describir una cuenta de usuario en un servidor:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>dn: uid=upruebas,ou=People,dc=ejemplo,dc=com
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>objectclass: account
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>objectclass: posixAccount
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>objectclass: topuid: upruebas
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>cn: Usuario Pruebas
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>loginshell: /bin/bash
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>uidnumber: 512
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>gidnumber: 300
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>homedirectory: /home/upruebas
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>gecos: Usuario Pruebas
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>userpassword: 123456
+</code></pre></div>
+<p>Crearíamos un archivo de texto con la extensión ldif, por ejemplo <code>usuariopruebas.ldif</code> y lo añadiríamos con el comando <code>ldapadd</code>.</p>
+<p>Lo veremos en detalle en la práctica. </p>
+<h2 id="referencias">Referencias</h2>
+<p><a href="https://sarreplec.caib.es/pluginfile.php/10993/mod_resource/content/2/DAW05_v1/ArchivosUnidad/Moodle/DAW05_completa_offline/DAW05_Contenidos/index.html">Servicios de red implicados en el despliegue de una aplicación web.</a></p>
+<p><a href="http://somebooks.es/sistemas-operativos-en-red/">Sistemas Operativos en Red</a> - Capítulo 11. Instalar y configurar OpenLDAP</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "toc.integrate", "search.highlight", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f13b1293.min.js"></script>
+      
+    
+  </body>
+</html>
